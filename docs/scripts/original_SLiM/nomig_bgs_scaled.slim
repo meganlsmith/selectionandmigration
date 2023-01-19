@@ -1,17 +1,21 @@
 // set up the first simulation
-// this is a no migration model
-// there is no selection
+// this is no migration
+// there is background selection
 // neutral mutations are added after the fact via tree sequence recording
 
 
 initialize() {
 	// initialize tree sequence recording
 	initializeTreeSeq();
+	defineConstant("burnin", 25000);
 	
-	// all mutations are neutral and added later
-	initializeMutationRate(0);
+	// this mutation rate should be proportional to the number of deleterious mutations.
+	// so, if the overall mutation rate is 1e-8, and 75% of mutations are deleterious.
+	// we would initialize this mutatation rate to .75 * 1e-8 = 7.5e-9
+	// the neutral mutation rate would be .25 * 1e-8 = 2.5e-9
+	initializeMutationRate(7.5e-7);
 	
-	// m1 mutation type: deleterious (doesn't matter b/c mutation rate is zero)
+	// m1 mutation type: deleterious
 	initializeMutationType("m1", 0.25, "g", -0.0133, 0.35);
 	
 	// g1 genomic element type: uses m1 for all mutations
@@ -22,20 +26,25 @@ initialize() {
 	initializeRecombinationRate(5e-6);
 }
 
-// create a population of 1250 individuals then split into two populations
+// create a population of 1250individuals
 1 {
-	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
 	sim.addSubpop("p1", 1250);
+	sim.rescheduleScriptBlock(s3, asInteger(divtime)+burnin, asInteger(divtime)+burnin);
+	sim.rescheduleScriptBlock(s4, burnin, burnin);
+
+}
+
+// split the two populations
+s4 25000 { 
 	sim.addSubpopSplit("p2", 1250, p1); 
 	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
 }
 
 
 
-
 s3 13750 late() {
 	cat("Final random seed: " + getSeed() + "\n");
-	name = "nomig_neutral_scaled_"+rep+".trees";
+	name = "nomig_bgs_scaled_"+rep+".trees";
 	sim.treeSeqOutput(name);
 }
 
