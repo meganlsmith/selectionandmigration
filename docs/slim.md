@@ -5,6 +5,8 @@ theme: minima
 
 # Simple Models
 
+First we consider a set of models with constant mutation rates, constant recombination rates, and relatively simple DFEs.
+
 ## Demographic models
 1. No migration (nomig)
 2. Migration 1 -> 2 (p1_p2)
