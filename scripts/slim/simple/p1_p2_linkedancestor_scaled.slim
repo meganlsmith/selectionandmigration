@@ -1,25 +1,25 @@
 // set up the first simulation
-// this is a pulse of migration from population 1 into population 2 
+// this is a pulse of migration from population 1 into population 2
 // there is a sweep in the ancestor
 // neutral mutations are added after the fact via tree sequence recording
 
 
 initialize() {
 	// initialize tree sequence recording
-	initializeTreeSeq();// 
-	
+	initializeTreeSeq();//
+
 	defineConstant("selcoef", runif(1, 0.1, 0.5));
-	
-	
+
+
 	// we'll overlay our. neutral mutations, so this is zero.
 	initializeMutationRate(0);
-	
-	// m1 mutation type: advantageous
+
+	// m3 mutation type: advantageous
 	initializeMutationType("m3", 1.0, "f", selcoef);
-	
+
 	// g1 genomic element type: uses m3 for all mutations
 	initializeGenomicElementType("g1", m3, 1.0);
-	
+
 	// uniform chromosome of length 10 kb with uniform recombination
 	initializeGenomicElement(g1, 0, 9999);
 	initializeRecombinationRate(5e-6);
@@ -68,7 +68,7 @@ initialize() {
 // split the two populations
 1001 {
 	sim.addSubpopSplit("p2", 1250, p1);
-	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);		
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
 }
 
 // migration pulse
@@ -89,4 +89,3 @@ s3 16250 late() {
 	name = "p1_p2_linkedancestor_scaled_"+rep+".trees";
 	sim.treeSeqOutput(name);
 }
-
