@@ -30,6 +30,4 @@ First we consider a set of models with constant mutation rates, constant recombi
 
 To sample parameters, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_slim.py).
 
-```
-python sample_parameters_slim.py -s <i>name of slim script</i> -r **replicates** -d **divergence time**
-```
+<pre><code>&lt;python sample_parameters_slim.py -s <i>name of slim script</i> -r **replicates** -d **divergence time**&gt;
