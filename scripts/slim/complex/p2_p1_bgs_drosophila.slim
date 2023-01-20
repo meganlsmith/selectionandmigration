@@ -1,0 +1,91 @@
+// set up a simulation
+initialize() {
+	// initialize tree sequence recording
+	initializeTreeSeq();
+	defineConstant("burnin", 25000);
+
+	// draw mutation rate 
+	initializeMutationRate(runif(1, (3.445e-7), 3.445e-6));
+	
+	// set up mutation classes
+	initializeMutationType("m1", 0.5, "f", 0.0);  //neutral
+	initializeMutationType("m2", 0.25, "g", -0.0133, 0.35); // deleterious coding
+	initializeMutationType("m3", 0.25, "g", -0.00133, 0.35); // constrained noncoding
+
+	// make the genomic element types
+	initializeGenomicElementType("g1", c(m1), c(1)); //unconstrained
+	initializeGenomicElementType("g2", c(m1, m2), c(0.25, 0.75)); // deleterious coding region
+	initializeGenomicElementType("g3", c(m1, m3), c(0.25, 0.75)); // constrained noncoding region
+	
+
+	// read genomic element map
+	genomelines = readFile("gfile.txt");
+   for (line in genomelines)
+   {
+		components = strsplit(line, "\t");
+   	thisstart = asInteger(components[0])-1; // convert from one index
+   	thisend = asInteger(components[1])-1; // convert from one index
+   	thisprop = components[2];
+   	thisratio = components[3];
+   	if (thisratio == 0)
+   	{
+   		initializeGenomicElement(g1, thisstart, thisend);
+   	}
+   	else if (thisratio == 1)
+   	{
+   		initializeGenomicElement(g2, thisstart, thisend);
+   	}
+   	else if (thisratio == 0.1)
+   	{
+   		initializeGenomicElement(g3, thisstart, thisend);
+   	}
+   		
+   }
+
+	// read recombinationr ate
+	lines = readFile("rfile.txt");
+	rates = NULL;
+	ends = NULL;
+	for (line in lines)
+	{
+		components = strsplit(line, "\t");
+		ends = c(ends, asInteger(components[0]));
+		rates = c(rates, asFloat(components[1]));
+	}
+	rates = rates * 100; // to scale
+	initializeRecombinationRate(rates, ends);
+}
+
+// create a population of 125000 individuals
+1 {
+	sim.addSubpop("p1", 1250);
+	
+	sim.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig)+burnin-1, asInteger(divtime) - asInteger(tmig)+burnin-1);
+	sim.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig)+burnin, asInteger(divtime) - asInteger(tmig)+burnin);
+	sim.rescheduleScriptBlock(s3, asInteger(divtime)+burnin, asInteger(divtime)+burnin);
+	sim.rescheduleScriptBlock(s4, burnin, burnin);
+}
+
+// split the two populations
+s4 12500 { 
+	sim.addSubpopSplit("p2", 1250, p1); 
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+}
+
+// migration pulse
+s1 12625 {
+	p1.setMigrationRates(p2, pmig);
+}
+
+s2 12626 {
+	p1.setMigrationRates(p2, 0);
+}
+
+
+
+s3 13750 late() {
+	cat("Final random seed: " + getSeed() + "\n");
+	name = "p2_p1_bgs_drosophila_"+rep+".trees";
+	sim.treeSeqOutput(name);
+}
+

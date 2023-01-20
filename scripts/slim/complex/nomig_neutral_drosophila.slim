@@ -1,0 +1,48 @@
+// set up a simulation
+initialize() {
+	// initialize tree sequence recording
+	initializeTreeSeq();
+
+	// draw mutation rate 
+	initializeMutationRate(0);
+	
+	// set up mutation classes
+	initializeMutationType("m1", 0.5, "f", 0.0);  //neutral
+
+	// make the genomic element types
+	initializeGenomicElementType("g1", c(m1), c(1)); //unconstrained
+	
+	initializeGenomicElement(g1, 0, 9999); // all neutral
+
+	// read recombinationr ate
+	lines = readFile("rfile.txt" );
+	rates = NULL;
+	ends = NULL;
+	for (line in lines)
+	{
+		components = strsplit(line, "\t");
+		ends = c(ends, asInteger(components[0]));
+		rates = c(rates, asFloat(components[1]));
+	}
+	rates = rates * 100; // to scale
+	initializeRecombinationRate(rates, ends);
+}
+
+// create a population of 1250individuals
+1 {
+	sim.addSubpop("p1", 1250);
+	sim.addSubpopSplit("p2", 1250, p1); 
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+
+	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+
+}
+
+
+
+s3 13750 late() {
+	cat("Final random seed: " + getSeed() + "\n");
+	name = "nomig_neutral_drosophila_"+rep+".trees";
+	sim.treeSeqOutput(name);
+}
+
