@@ -37,7 +37,7 @@ python sample_parameters_slim.py -s slim_script -r replicates -d divergence_time
 
 ### Step 2: Simulate data
 
-To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/neutral_tskit_to_msout_v2.py).
+To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/neutral_tskit_to_msout_v2.py).  
 -f specifies the DFE and can be neutral, sweep, or bgs.  
 
 Usage for migration model:  
