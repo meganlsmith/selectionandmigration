@@ -1,0 +1,17 @@
+---
+title: SLiM
+theme: minima
+---
+
+# Simple Models
+
+## Demographic models
+1. No migration (nomig)
+2. Migration 1 -> 2 (p1_p2)
+3. Migration 2 -> 1 (p2_p1)
+
+## Distributions of Fitness Effects
+1. Neutral ([neutral-nomig](../scripts/slim/simple/nomig_neutral_scaled.slim)
+2. Simple Background Selection
+3. Selective Sweeps
+4. Adaptive Introgression

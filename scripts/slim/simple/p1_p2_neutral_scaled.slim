@@ -1,0 +1,52 @@
+// set up the first simulation
+// this is a pulse of migration from population 1 into population 2 
+// there is no selection
+// neutral mutations are added after the fact via tree sequence recording
+
+
+initialize() {
+	// initialize tree sequence recording
+	initializeTreeSeq();
+	
+	// all mutations are neutral
+	initializeMutationRate(0);
+	
+	// m1 mutation type: deleterious (doesn't matter b/c mutation rate is zero)
+	initializeMutationType("m1", 0.25, "g", -0.0133, 0.35);
+	
+	// g1 genomic element type: uses m1 for all mutations
+	initializeGenomicElementType("g1", m1, 1.0);
+	
+	// uniform chromosome of length 10 kb with uniform recombination
+	initializeGenomicElement(g1, 0, 9999);
+	initializeRecombinationRate(5e-6);
+}
+
+// create a population of 125000 individuals
+1 {
+	sim.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig)-1, asInteger(divtime) - asInteger(tmig)-1);
+	sim.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig), asInteger(divtime) - asInteger(tmig));
+	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+	sim.addSubpop("p1", 1250);
+	sim.addSubpopSplit("p2", 1250, p1); 
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+
+}
+
+
+// migration pulse
+s1 12625 {
+	p2.setMigrationRates(p1, pmig);
+}
+
+s2 12626 {
+	p2.setMigrationRates(p1, 0);
+}
+
+
+s3 13750 late() {
+	cat("Final random seed: " + getSeed() + "\n");
+	name = "p1_p2_neutral_scaled_"+rep+".trees";
+	sim.treeSeqOutput(name);
+}
+
