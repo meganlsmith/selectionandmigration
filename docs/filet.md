@@ -67,6 +67,15 @@ theme: minima
 4. msmove (match $\pi$)
 
 To simulate data in ms matching $\pi$ in th training data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/msmove_matchpi.py).  
+```
+-t theta
+-p rho
+-w window window_size
+-r replicates
+-m model nomig, mig12, mig21
+-i introgression (flag used when there is introgression)
+-d divergence time (in msmove units)
+```
     ```
     -t starting point for theta  
     -p starting point for rho  
