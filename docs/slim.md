@@ -77,6 +77,9 @@ python sample_parameters_slim.py -s slim_script -r replicates -d divergence_time
 ### Step 2: Simulate data
 
 To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/tskit_Drosophilamaps_to_msout_v2.py).  
+The following files also need to be in the directory:  
+* [python script for annotations](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/selRegionsFromAnno_MLS.py)  
+* [drosophilaAnnotations directory](https://github.com/meganlsmith/selectionandmigration/blob/main/data/drosophilaAnnotations)  
 ```
 -f specifies the DFE and can be neutral, sweep, or bgs.  
 ```
