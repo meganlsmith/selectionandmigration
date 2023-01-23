@@ -117,7 +117,15 @@ windowSize=10000 # window size
 
 for inFile in `ls testingSims_1250/ | grep .msOut` ; do cat testingSims_1250/$inFile | ./FILET-master/twoPopnStats_forML $n1 $n2 | python ./FILET-master/normalizeTwoPopnStats.py None $windowSize > testingSimsStats_1250/$inFile; done
 ```
-The statistics are now stored in testingSimsStats_1250. Do this for all divergence times and SLiM models.
+The statistics are now stored in testingSimsStats_1250. Do this for all divergence times and SLiM models.  
+
+Finally, prepare the feature vectors using this [python script](?).
+Note to self: for drosophila used prepfeaturevectors.sh prepfeaturevectors_5000.sh prepfeaturevectors_20000.sh
+                for training prepfeaturevectors_training.sh + 5000 and prepfeaturevectors_20000
+                for msmove prepfeaturevectors_msmove_training.sh + 5000 and 20000.
+                presumably also some for the original msmove datasets and the original SLiM datasets (prepfeaturevectors_oldslim.sh + 5000 and 20000 for sure, others?)
+```
+```
 
 # Classifiers
 We constructed classifiers for each of the training datasets, using the following summary statistics and scripts from Schrider et al. (2018):
