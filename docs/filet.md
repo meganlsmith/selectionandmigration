@@ -7,4 +7,4 @@ theme: minima
 
 1. msmove
 
-2. msmove (match \pi)
+2. msmove (match $\pi)
