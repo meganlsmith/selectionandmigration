@@ -5,14 +5,13 @@ theme: minima
 
 # Simple Models
 
-First we consider a set of models with constant mutation rates, constant recombination rates, and relatively simple DFEs.
-
 ## Demographic models
 1. No migration (nomig)
 2. Migration P1 -> P2 (p1_p2)
-3. Migration P2 -> P1 (p2_p1)
+3. Migration P2 -> P1 (p2_p1)  
 
-## Distributions of Fitness Effects
+## Distributions of Fitness Effects (Simple Models)
+First we consider a set of models with constant mutation rates, constant recombination rates, and relatively simple DFEs.  
 1. Neutral  
 ([neutral-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/nomig_neutral_scaled.slim), [neutral-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p1_p2_neutral_scaled.slim), [neutral-p2_p1](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p2_p1_neutral_scaled.slim))  
 2. Simple Background Selection  
@@ -24,7 +23,7 @@ First we consider a set of models with constant mutation rates, constant recombi
 5. Adaptive Introgression  
 [adaptiveint-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p1_p2_adaptiveint_scaled.slim))  
 
-## Simulating the data
+## Simulating the data (Simple Models)
 
 ### Step 1: Sample parameters
 
@@ -50,7 +49,7 @@ Usage for no migration model:
 python neutral_tskit_to_msout_v2.py -d divergence_time -r replicates -s slim_script -p None -c 12 -f DFE -x slim_executable
 ```
 
-# Complex Models
+## Distributions of Fitness Effects (Complex Models)
 
 Next, we considered models with more realistic DFEs, variable recombination rates, and variable mutation rates. Specifically, we used the real BGS-weak CNE model from Schrider (2020). In this model, mutation rates are drawn from a range for each simlated regions. Recombination rates are based on the recombination map from the **D. melanogaster** genome and vary across simulated regions. Background selection acts in coding regions, and weaker BGS acts in constrained noncoding elements.
 
@@ -64,3 +63,5 @@ Next, we considered models with more realistic DFEs, variable recombination rate
 ([linkedancestor-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/nomig_linkedancestor_drosophila.slim), [linkedancestor-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/p1_p2_linkedancestor_drosophila.slim), [linkedancestor-p2_p1](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/p2_p1_linkedancestor_drosophila.slim))  
 5. Adaptive Introgression  
 [adaptiveint-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/p1_p2_adaptiveint_drosophila.slim))  
+
+## Simulating the data (Complex Models)
