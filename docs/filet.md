@@ -69,6 +69,7 @@ theme: minima
 To simulate data in ms matching $\pi$ in th training data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/msmove_matchpi.py).  
     ```
         -t starting point for theta  
+        
         -p starting point for rho  
         -w window size to use in simulation
         -r number of replicates
