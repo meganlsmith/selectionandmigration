@@ -68,16 +68,16 @@ theme: minima
 
 To simulate data in ms matching $\pi$ in th training data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/msmove_matchpi.py).  
     ```
-        -t starting point for theta  
-        -p starting point for rho  
-        -w window size to use in simulation
-        -r number of replicates
-        -d divergence time (in msmove units)
-        -i path to slim feature vector (see below)
-        -o folder to store msmove output
-        -s suffix for naming files
-        -m path to msmove
-        -f path to FILET scripts
+    -t starting point for theta  
+    -p starting point for rho  
+    -w window size to use in simulation
+    -r number of replicates
+    -d divergence time (in msmove units)
+    -i path to slim feature vector (see below)
+    -o folder to store msmove output
+    -s suffix for naming files
+    -m path to msmove
+    -f path to FILET scripts
     ```
     ```
     python msmove_matchpi.py -t theta -p rho -w window_size -r replicates -d divergence_time -i feature_vector -o output_directory -s prefix -m path_to_msmove -f path_to_FILET
