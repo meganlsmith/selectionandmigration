@@ -67,6 +67,8 @@ theme: minima
 4. msmove (match $\pi$)
 
 To simulate data in ms matching $\pi$ in th training data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/msmove_matchpi.py).  
+Arguments:  
+
 ```
 -t starting point for theta
 -p starting point for rho
@@ -78,7 +80,9 @@ To simulate data in ms matching $\pi$ in th training data, use this [python scri
 -s suffix for naming files
 -m path to msmove
 -f path to FILET scripts
-```
+```  
+Usage:  
+
 ```
 python msmove_matchpi.py -t theta -p rho -w window_size -r replicates -d divergence_time -i feature_vector -o output_directory -s prefix -m path_to_msmove -f path_to_FILET
 ```
@@ -105,13 +109,13 @@ Next, calculate the statistics using the following bash code:
 n1=20 # population one size
 n2=20 # population two size
 windowSize=10000 # window size
-#
-#
-#
-#
-## Calculate summary statistics
 
-for inFile in `ls testingSims_1250/ | grep .msOut` ; do cat testingSims_1250/$inFile | /N/u/mls16/Carbonate/Programs/FILET-master/twoPopnStats_forML $n1 $n2 | python /N/u/mls16/Carbonate/Programs/FILET-master/normalizeTwoPopnStats.py None $windowSize > testingSimsStats_1250/$inFile; done
+
+
+
+# Calculate summary statistics
+
+for inFile in `ls testingSims_1250/ | grep .msOut` ; do cat testingSims_1250/$inFile | ./FILET-master/twoPopnStats_forML $n1 $n2 | python ./FILET-master/normalizeTwoPopnStats.py None $windowSize > testingSimsStats_1250/$inFile; done
 ```
 The statistics are now stored in testingSimsStats_1250. Do this for all divergence times and SLiM models.
 

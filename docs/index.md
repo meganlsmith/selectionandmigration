@@ -14,4 +14,4 @@ We considered several different models, all implemented in SLiM and msprime. Fir
 
 # dadi
 
-# FILET
+# [FILET](filet.md)
