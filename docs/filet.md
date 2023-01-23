@@ -7,7 +7,7 @@ theme: minima
 
 1. msmove
 
-    To simulate data in msmove, we first draw parameters using a [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/ sample_parameters_msmove.py).  
+    To simulate data in msmove, we first draw parameters using a [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_msmove.py).  
     Parameters:
     ```
     -t theta
@@ -31,6 +31,8 @@ theme: minima
     ```
 
 2. FILET (Simple)
+
+    All FILET datasets are simulated as described in the [FILET page](filet.md).  
     * Neutral
     * Background Selection
     * Selective Sweep in P1 (in 5, 10, 15% of loci)
