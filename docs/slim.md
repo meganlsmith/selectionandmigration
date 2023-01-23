@@ -65,3 +65,26 @@ Next, we considered models with more realistic DFEs, variable recombination rate
 [adaptiveint-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/p1_p2_adaptiveint_drosophila.slim))  
 
 ## Simulating the data (Complex Models)
+
+### Step 1: Sample parameters
+
+To sample parameters, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_slim.py).  
+Example usage:  
+
+```
+python sample_parameters_slim.py -s slim_script -r replicates -d divergence_time
+```
+### Step 2: Simulate data
+
+To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/tskit_Drosophilamaps_to_msout_v2.py).  
+```
+-f specifies the DFE and can be neutral, sweep, or bgs.  
+```
+Usage for migration model:  
+```
+python tskit_Drosophilamaps_to_msout_v2.py -d divergence_time -r replicates -s slim_script -p parameters_file -c cores -f DFE -x slim_executable
+```
+Usage for no migration model:
+```
+python tskit_Drosophilamaps_to_msout_v2.py -d divergence_time -r replicates -s slim_script -p None -c 12 -f DFE -x slim_executable
+```
