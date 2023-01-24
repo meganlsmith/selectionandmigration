@@ -116,12 +116,6 @@ for inFile in `ls testingSims_1250/ | grep .msOut` ; do cat testingSims_1250/$in
 ```
 The statistics are now stored in testingSimsStats_1250. Do this for all divergence times, and for both training and testing datasets.  
 
-Finally, prepare the feature vectors using this [python script](?).
-Note to self: for drosophila used prepfeaturevectors.sh prepfeaturevectors_5000.sh prepfeaturevectors_20000.sh
-                for training prepfeaturevectors_training.sh + 5000 and prepfeaturevectors_20000
-                for msmove prepfeaturevectors_msmove_training.sh + 5000 and 20000.
-                presumably also some for the original msmove datasets and the original SLiM datasets (prepfeaturevectors_oldslim.sh + 5000 and 20000 for sure, others?)
-
 # Create datasets with selection (training and testing SLiM datasets)
 
 Create datasets with 5, 10, 15% of loci experiencing sweeps or adaptive introgression. The input folder is the output folder from calculating summary statistics. Do this for all divergence times and for training and testing datasets.
@@ -130,6 +124,47 @@ python createdatasets_adaptive.py -i input_folder
 ```
 
 # Prepare feature fectors (training and testing SLiM datasets)
+
+Finally, prepare the feature vectors. The input folder is the folder with the summary statistics.
+
+Testing datasets:
+```
+python prepTesting_drosophila.py input_folder output_folder
+```
+Training datasets:
+```
+python prepTraining_drosophila.py input_folder output_folder
+```
+
+# Calculate summary statistics and prepare feature fector (msmove)
+
+The following bash script illustrates how to calculate summary statistics for the simulations in th efolder trainingSims_neutral in the div_25 folder. Do this for all divergence times.
+
+```
+n1=20 # population one size
+n2=20 # population two size
+windowSize=10000 # window size
+
+cd div25
+
+mkdir -p trainingSimsStats trainingSets
+
+## Calculate summary statistics
+for inFile in `ls trainingSims_neutral/ | grep .msOut` ; do cat trainingSims_neutral/$inFile | ./FILET-master/twoPopnStats_forML $n1 $n2 | python./FILET-master/normalizeTwoPopnStats.py None $windowSize > trainingSimsStats/$inFile; done
+
+## Step 3 Aggregate training data
+python ./FILET-master/buildThreeClassTrainingSet.py trainingSimsStats/ trainingSets/threeClass.fvec
+
+cd ../
+```
+
+
+# Calculate summary statistics and prepare feature vector (msmove match $/pi$)
+
+Summary statistics are calculated when msmove_matchpi.py is run, so we need only to prepare the feature vectors.
+```
+python prepTraining_msmove_drosophila.py input_folder output_folder
+```
 
 # Classifiers
 We constructed classifiers for each of the training datasets, using the following summary statistics and scripts from Schrider et al. (2018):
