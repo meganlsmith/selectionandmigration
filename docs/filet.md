@@ -122,7 +122,7 @@ Note to self: for drosophila used prepfeaturevectors.sh prepfeaturevectors_5000.
                 for msmove prepfeaturevectors_msmove_training.sh + 5000 and 20000.
                 presumably also some for the original msmove datasets and the original SLiM datasets (prepfeaturevectors_oldslim.sh + 5000 and 20000 for sure, others?)
 
-# Create adaptive datasets (training and testing SLiM datasets)
+# Create datasets with selection (training and testing SLiM datasets)
 
 Create datasets with 5, 10, 15% of loci experiencing sweeps or adaptive introgression. The input folder is the output folder from calculating summary statistics. Do this for all divergence times and for training and testing datasets.
 ```
