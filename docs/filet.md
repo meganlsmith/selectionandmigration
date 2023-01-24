@@ -87,9 +87,9 @@ Usage:
 python msmove_matchpi.py -t theta -p rho -w window_size -r replicates -d divergence_time -i feature_vector -o output_directory -s prefix -m path_to_msmove -f path_to_FILET
 ```
 
-# Calculating summary statistics
+# Calculating summary statistics (training and testing SLiM datasets)
 
-First, create a directory that contains properly formatted ms-style data for each of the training models. There should be one file per model. To combine all simulations into a single, properly formatted file, follow the example below. You can find the msmovecommand.txt file [here](https://github.com/meganlsmith/selectionandmigration/blob/main/data/msmovecommand.txt).
+First, you should  have a directory that contains properly formatted ms-style data for each of the training models. There should be one file per model. To combine all simulations into a single, properly formatted file, follow the example below. You can find the msmovecommand.txt file [here](https://github.com/meganlsmith/selectionandmigration/blob/main/data/msmovecommand.txt).
 
 ```
 # in this example, all *ms.out files for the p1_p2 background selection simulations with divergence time 1250 are stored in p1_p2_bgs_drosophila_1250.
@@ -110,22 +110,26 @@ n1=20 # population one size
 n2=20 # population two size
 windowSize=10000 # window size
 
-
-
-
 # Calculate summary statistics
 
 for inFile in `ls testingSims_1250/ | grep .msOut` ; do cat testingSims_1250/$inFile | ./FILET-master/twoPopnStats_forML $n1 $n2 | python ./FILET-master/normalizeTwoPopnStats.py None $windowSize > testingSimsStats_1250/$inFile; done
 ```
-The statistics are now stored in testingSimsStats_1250. Do this for all divergence times and SLiM models.  
+The statistics are now stored in testingSimsStats_1250. Do this for all divergence times, and for both training and testing datasets.  
 
 Finally, prepare the feature vectors using this [python script](?).
 Note to self: for drosophila used prepfeaturevectors.sh prepfeaturevectors_5000.sh prepfeaturevectors_20000.sh
                 for training prepfeaturevectors_training.sh + 5000 and prepfeaturevectors_20000
                 for msmove prepfeaturevectors_msmove_training.sh + 5000 and 20000.
                 presumably also some for the original msmove datasets and the original SLiM datasets (prepfeaturevectors_oldslim.sh + 5000 and 20000 for sure, others?)
+
+# Create adaptive datasets (training and testing SLiM datasets)
+
+Create datasets with 5, 10, 15% of loci experiencing sweeps or adaptive introgression. The input folder is the output folder from calculating summary statistics. Do this for all divergence times and for training and testing datasets.
 ```
+python createdatasets_adaptive.py -i input_folder
 ```
+
+# Prepare feature fectors (training and testing SLiM datasets)
 
 # Classifiers
 We constructed classifiers for each of the training datasets, using the following summary statistics and scripts from Schrider et al. (2018):
