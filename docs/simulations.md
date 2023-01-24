@@ -1,11 +1,11 @@
 ---
-title: FILET
+title: Simulations
 theme: minima
 ---
 
-# Testing Datasets
+NOTE TO SELF: DO I NEED TO REDO SOME THINGS WITH THE ORIGNAL SLIM MODELS SINCE DATASETS WERE DIFFERENT SIZES, AND I SIMULATED MORE DATA TO FIX THIS ISSUE?
 
-1. msmove
+# msmove  (DONE and in Organized)
 
     To simulate data in msmove, we first draw parameters using a [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_msmove.py).  
     Parameters:
@@ -30,7 +30,17 @@ theme: minima
     msmove 40 10000 -t tbs -r tbs tbs -I 2 20 20 -ej tbs 2 1 < nomig_params_50_250_10000_0.25.txt > ./div25/trainingSims_neutral/noMig.msOut
     ```
 
-2. FILET (Simple)
+    We used bash scripts to simulate the [training](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bash/simdata_msmove.sh) and [testing](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bash/simdata_msmove_testing.sh) data using the above commands.
+
+    Output:
+        ./div25/testingSims_neutral
+        ./div25/trainingSims_neutral
+        ./div1/testingSims_neutral
+        ./div1/trainingSims_neutral
+        ./div4/testingSims_neutral
+        ./div4/terainingSims_neutral
+
+# FILET (Simple) # WORKING ON THIS, MOVED training SIMULATIONS TO FILET_ORGANIZED. Now, make sure all have right number of sims, combine .trees and sliminfo and compress, add info to note. Then, we need to do more simulations for the simple testing datasets, I think. 
 
     All FILET datasets are simulated as described in the [FILET page](filet.md).  
     * Neutral
