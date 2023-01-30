@@ -40,7 +40,7 @@ NOTE TO SELF: DO I NEED TO REDO SOME THINGS WITH THE ORIGNAL SLIM MODELS SINCE D
         ./div4/testingSims_neutral
         ./div4/terainingSims_neutral
 
-# FILET (Simple) # WORKING ON THIS, MOVED training SIMULATIONS TO FILET_ORGANIZED. Now, make sure all have right number of sims, combine .trees and sliminfo and compress, add info to note. Then, we need to do more simulations for the simple testing datasets, I think. 
+# FILET (Simple) # WORKING ON THIS, MOVED training SIMULATIONS TO FILET_ORGANIZED. Now, make sure all have right number of sims (done for bgs, done for neutral), combine .trees and sliminfo and compress (in progress), add info to note. Then, we need to do more simulations for the simple testing datasets, I think.
 
     All FILET datasets are simulated as described in the [FILET page](filet.md).  
     * Neutral
