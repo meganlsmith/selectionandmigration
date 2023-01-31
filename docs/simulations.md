@@ -42,8 +42,8 @@ NOTE TO SELF: DO I NEED TO REDO SOME THINGS WITH THE ORIGNAL SLIM MODELS SINCE D
 
 # FILET (Simple) 
 
-NOTES: Is there an issue with the neutral 1250 simulations when continued? (maybe didn't use correct params file?)
-        Running 1000 more simulations for adaptive introgression scenarios.
+NOTES: 
+        Running 1000 more simulations for adaptive introgression scenarios, running 1250, 5000, 20000
 
     To simulate data in FILET, we first draw parameters using a [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_slim.py).
     Parameters:
@@ -85,6 +85,11 @@ NOTES: Is there an issue with the neutral 1250 simulations when continued? (mayb
     * Adaptive Introgression (2000 p1_p2 *SIMULATE 1000 MORE DATASETS)
 
     2. Testing Data
+    * Neutral (nomig 2500, p1_p2 2000, p2_p2 2500) (running remaining)
+    * Background Selection (nomig 2500, p1_p2 2000, p2_p2 2500) (running remaining)
+    * Selective Sweep in P1 (nomig 2500, p1_p2 2000, p2_p2 2500)
+    * Selective Sweep in the ancestor (nomig 2500, p1_p2 2000, p2_p2 2500)
+    * Adaptive Introgression (p1_p2_2000) (running remaining)
 
 
 2. FILET (Complex)
