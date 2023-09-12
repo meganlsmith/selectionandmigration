@@ -1,0 +1,96 @@
+// set up the first simulation
+// this is a pulse of migration from population 1 into population 2 
+// there is background selection
+// neutral mutations are added after the fact via tree sequence recording
+
+
+initialize() {
+	// initialize tree sequence recording
+	initializeTreeSeq();
+	
+	defineConstant("selcoef", runif(1, 0.1, 0.5));
+	// we'll overlay our. neutral mutations, so this is zero.
+	initializeMutationRate(0);
+	
+	// m1 mutation type: deleterious
+	initializeMutationType("m3", 1.0, "f", selcoef);
+	
+	
+	// g1 genomic element type: uses m1 for all mutations
+	initializeGenomicElementType("g1", m3, 1.0);
+	
+	// uniform chromosome of length 10 kb with uniform recombination
+	initializeGenomicElement(g1, 0, 9999);
+	// read recombinationr ate
+        lines = readFile("rfile_"+rep+".txt");
+	rates = NULL;
+	ends = NULL;
+	for (line in lines)
+	{
+		components = strsplit(line, "\t");
+		ends = c(ends, asInteger(components[0]));
+		rates = c(rates, asFloat(components[1]));
+	}
+	rates = rates * 100; // to scale
+	initializeRecombinationRate(rates, ends);
+}
+
+// create a population of 12500 individuals, diverge
+1 early() {
+	defineConstant("simID", getSeed());
+	sim.addSubpop("p1", 1250);
+	sim.addSubpopSplit("p2", 1250, p1);
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+	
+	
+	community.rescheduleScriptBlock(s4, 1, asInteger(divtime) - asInteger(tmig) - 1);
+	community.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig) , asInteger(divtime) - asInteger(tmig));
+	community.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig)+1, asInteger(divtime) - asInteger(tmig)+1);
+	community.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+}
+
+// add advantageous mutation
+1 late(){
+	target = sample(p1.genomes, 1);
+	target.addNewDrawnMutation(m3, 4999);
+	sim.treeSeqOutput("/tmp/"+rep+"slim_" + simID + ".trees");
+}
+
+// start over if mutaiton lost
+s4 1: late() {
+	mut = sim.mutationsOfType(m3);
+	if (size(mut) == 0)
+	{
+		cat(getSeed() + ": LOST – RESTARTING\n");
+		sim.readFromPopulationFile("/tmp/"+rep+"slim_" + simID + ".trees");
+		setSeed(rdunif(1, 0, asInteger(2^62) - 1));
+	}
+	else if (size(mut) == 1)
+	{
+		if (sim.mutationFrequencies(p1, mut) == 1)
+		{
+			cat(getSeed() + ": ESTABLISHED in p1\n");
+			community.deregisterScriptBlock(self);
+		}
+	}
+}
+
+// migration pulse
+s1 12625 early() {
+	p2.setMigrationRates(p1, pmig);
+}
+
+s2 12626 early() {
+	p2.setMigrationRates(p1, 0);
+}
+
+
+
+
+s3 13750 late() {
+	cat("Final random seed: " + getSeed() + "\n");
+	cat("Selection_coefficient: " + selcoef);
+	name = "p1_p2_adaptiveint_drosophila_"+rep+".trees";
+	sim.treeSeqOutput(name);
+}
+

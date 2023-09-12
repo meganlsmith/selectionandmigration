@@ -17,7 +17,6 @@ We used the following program versions:
 3. Migration P2 -> P1 (p2_p1)  
 
 ## Distributions of Fitness Effects
-First we consider a set of models with constant mutation rates, constant recombination rates, and relatively simple DFEs.  
 1. Neutral  
 ([neutral-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/nomig_neutral_scaled.slim), [neutral-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p1_p2_neutral_scaled.slim), [neutral-p2_p1](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p2_p1_neutral_scaled.slim))  
 2. Background Selection  
@@ -73,9 +72,9 @@ python neutral_tskit_to_msout_v3.py -d 5000 -r 10000 -s nomig_neutral_scaled.sli
 
 ### SLURM scripts used to simulate data on the IU HPC
 
-All SLURM scripts used to simulate data on the IU HPC can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/slim_simple))
+All SLURM scripts used to simulate data on the IU HPC can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/slim_simple).
 
 ### Output files (ms-style)
 
 All simulated data, stored as ms-formatted output files, will be placed in the Dryad repository for this project.
-
+Parameters files will also be placed in the Dryad repository for this project.
