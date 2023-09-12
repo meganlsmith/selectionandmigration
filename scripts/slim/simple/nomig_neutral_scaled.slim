@@ -23,8 +23,8 @@ initialize() {
 }
 
 // create a population of 1250 individuals then split into two populations
-1 {
-	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+1 early() {
+	community.rescheduleScriptBlock(s1, asInteger(divtime), asInteger(divtime));
 	sim.addSubpop("p1", 1250);
 	sim.addSubpopSplit("p2", 1250, p1); 
 	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
@@ -33,7 +33,7 @@ initialize() {
 
 
 
-s3 13750 late() {
+s1 13750 late() {
 	cat("Final random seed: " + getSeed() + "\n");
 	name = "nomig_neutral_scaled_"+rep+".trees";
 	sim.treeSeqOutput(name);

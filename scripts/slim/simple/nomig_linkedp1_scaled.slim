@@ -1,47 +1,42 @@
-// set up the first simulation
-// this is a pulse of migration from population 1 into population 2
-// there is background selection
-// neutral mutations are added after the fact via tree sequence recording
-
-
 initialize() {
 	// initialize tree sequence recording
 	initializeTreeSeq();
-
+	
 	defineConstant("selcoef", runif(1, 0.1, 0.5));
-
+	
 	// we'll overlay our. neutral mutations, so this is zero.
 	initializeMutationRate(0);
-
-	// m3 mutation type: advantageous
+	
+	// m3 mutation type: beneficial
 	initializeMutationType("m3", 1.0, "f", selcoef);
-
-
-	// g1 genomic element type: uses m1 for all mutations
+	
+	
+	// g1 genomic element type: uses m3 for all mutations
 	initializeGenomicElementType("g1", m3, 1.0);
-
+	
 	// uniform chromosome of length 10 kb with uniform recombination
 	initializeGenomicElement(g1, 0, 9999);
 	initializeRecombinationRate(5e-6);
 }
-fitness(m3, p2) { return 1.0; }
+// make all m3 mutations neutral in p2
+mutationEffect(m3, p2) { return 1.0; }
 
 // create a population of 12500 individuals, diverge
-1 {
+1 early() {
 	defineConstant("simID", getSeed());
 	sim.addSubpop("p1", 1250);
 	sim.addSubpopSplit("p2", 1250, p1);
 	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
-
-
-	sim.rescheduleScriptBlock(s4, 1, asInteger(divtime) - 1);
-	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+	
+	
+	community.rescheduleScriptBlock(s4, 1, asInteger(divtime) - 1);
+	community.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
 }
 
 // add advantageous mutation
 1 late(){
 	target = sample(p1.genomes, 1);
-	target.addNewDrawnMutation(m3, 5000);
+	target.addNewDrawnMutation(m3, 4999);
 	sim.treeSeqOutput("/tmp/"+rep+"slim_" + simID + ".trees");
 }
 
@@ -59,7 +54,7 @@ s4 1: late() {
 		if (sim.mutationFrequencies(p1, mut) == 1)
 		{
 			cat(getSeed() + ": ESTABLISHED in p1\n");
-			sim.deregisterScriptBlock(self);
+			community.deregisterScriptBlock(self);
 		}
 	}
 }
@@ -75,3 +70,4 @@ s3 13750 late() {
 	name = "nomig_linkedp1_scaled_"+rep+".trees";
 	sim.treeSeqOutput(name);
 }
+

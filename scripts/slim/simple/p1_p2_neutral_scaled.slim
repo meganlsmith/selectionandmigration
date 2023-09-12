@@ -23,10 +23,10 @@ initialize() {
 }
 
 // create a population of 125000 individuals
-1 {
-	sim.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig)-1, asInteger(divtime) - asInteger(tmig)-1);
-	sim.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig), asInteger(divtime) - asInteger(tmig));
-	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+1 early() {
+	community.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig), asInteger(divtime) - asInteger(tmig));
+	community.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig)+1, asInteger(divtime) - asInteger(tmig)+1);
+	community.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
 	sim.addSubpop("p1", 1250);
 	sim.addSubpopSplit("p2", 1250, p1); 
 	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
@@ -35,11 +35,11 @@ initialize() {
 
 
 // migration pulse
-s1 12625 {
+s1 12625 early() {
 	p2.setMigrationRates(p1, pmig);
 }
 
-s2 12626 {
+s2 12626 early() {
 	p2.setMigrationRates(p1, 0);
 }
 

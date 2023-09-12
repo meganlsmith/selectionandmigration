@@ -25,23 +25,23 @@ initialize() {
 }
 
 // create a population of 12500 individuals, diverge
-1 {
+1 early(){
 	defineConstant("simID", getSeed());
 	sim.addSubpop("p1", 1250);
 	sim.addSubpopSplit("p2", 1250, p1);
 	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
 	
 	
-	sim.rescheduleScriptBlock(s4, 1, asInteger(divtime) - asInteger(tmig) - 2);
-	sim.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig) - 1, asInteger(divtime) - asInteger(tmig) - 1);
-	sim.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig), asInteger(divtime) - asInteger(tmig));
-	sim.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+	community.rescheduleScriptBlock(s4, 1, asInteger(divtime) - asInteger(tmig) - 1);
+	community.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig), asInteger(divtime) - asInteger(tmig));
+	community.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig) + 1, asInteger(divtime) - asInteger(tmig) + 1);
+	community.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
 }
 
 // add advantageous mutation
 1 late(){
 	target = sample(p1.genomes, 1);
-	target.addNewDrawnMutation(m3, 5000);
+	target.addNewDrawnMutation(m3, 4999);
 	sim.treeSeqOutput("/tmp/"+rep+"slim_" + simID + ".trees");
 }
 
@@ -59,17 +59,17 @@ s4 1: late() {
 		if (sim.mutationFrequencies(p1, mut) == 1)
 		{
 			cat(getSeed() + ": ESTABLISHED in p1\n");
-			sim.deregisterScriptBlock(self);
+			community.deregisterScriptBlock(self);
 		}
 	}
 }
 
 // migration pulse
-s1 12625 {
+s1 12625 early() {
 	p2.setMigrationRates(p1, pmig);
 }
 
-s2 12626 {
+s2 12626 early() {
 	p2.setMigrationRates(p1, 0);
 }
 

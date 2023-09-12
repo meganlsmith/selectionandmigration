@@ -46,11 +46,11 @@ pmigs = [0.05, 0.10, 0.15, 0.20,
 
 # get paramters
 tmigsample = np.random.choice(tmigs, options.numreps) # sample migration time multipliers
-tmigsample = [i * options.divtime for i in tmigsample] # multiply migration mults by tdiv
+tmigsample = [np.ceil(i * options.divtime) for i in tmigsample] # multiply migration mults by tdiv
 pmigsample = np.random.choice(pmigs, options.numreps) # sample props of migrants
 Sample = np.array([tmigsample, pmigsample]) # build nop array
 Sample = Sample.transpose() # transpose so each row has each paramter
 
 # write to output file
-outfilename = options.slimfile.split('.slim')[0]+'_params_'+str(options.divtime)+'.txt'
+outfilename = './params/'+options.slimfile.split('.slim')[0]+'_params_'+str(options.divtime)+'.txt'
 np.savetxt(outfilename, Sample, fmt="%s", delimiter="\t")
