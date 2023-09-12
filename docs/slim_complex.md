@@ -3,7 +3,13 @@ title: SLiM
 theme: minima
 ---
 
-# Simple Models
+# Complex Models
+
+## Programs
+We used the following program versions:
+1. SLiM v4.0.1
+2. pyslim v1.0.3
+3. tskit v0.5.5
 
 ## Demographic models
 1. No migration (nomig)
@@ -21,22 +27,30 @@ First we consider a set of models with constant mutation rates, constant recombi
 4. Selective Sweep in the ancestor  
 ([linkedancestor-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/nomig_linkedancestor_scaled.slim), [linkedancestor-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p1_p2_linkedancestor_scaled.slim), [linkedancestor-p2_p1](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p2_p1_linkedancestor_scaled.slim))  
 5. Adaptive Introgression  
-[adaptiveint-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p1_p2_adaptiveint_scaled.slim))  
+([adaptiveint-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/simple/p1_p2_adaptiveint_scaled.slim))  
 
 ## Simulating the data
 
 ### Step 1: Sample parameters
 
 To sample parameters, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_slim.py).  
-Example usage:  
+Parameters:
 
 ```
-python sample_parameters_slim.py -s slim_script -r replicates -d divergence_time
+"-s","--slimfile", help="SLiM script to use for simulation", type="string"
+"-r","--numreps", help="Number of replicates to simulate", default=1, type="int"
+"-d","--divtime", help="Divergence time to use for simulations. Use scaled values.", type="int"
+```
+Example usage:  
+```
+python sample_parameters_slim.py -s p1_p2_neutral_scaled.slim -r 10000 -d 5000
 ```
 
 ### Step 2: Simulate data
 
-To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/neutral_tskit_to_msout_v3.py).  
+To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/neutral_tskit_to_msout_v3.py).
+
+Parameters:
 ```
 "-s","--slimfile", help="SLiM script to use for simulation", type="string"
 "-r","--numreps", help="Number of replicates to simulate", default=1, type="int"
@@ -48,18 +62,27 @@ To simulate data, use this [python script](https://github.com/meganlsmith/select
 "-o","--previous", help="Number of replicates previously simulated", default=0, type="int"
 "--prefix", help="Prefix for naming file", type="string"
 ```
-Usage for migration model:  
+Example usage for a migration model:  
 ```
-python neutral_tskit_to_msout_v3.py -d divergence_time -r replicates -s slim_script -p parameters_file -c cores -f DFE -x slim_executable
+python neutral_tskit_to_msout_v3.py -d 5000 -r 10000 -s p1_p2_neutral_scaled.slim --prefix p1_p2_neutral_scaled -p p1_p2_neutral_scaled_params_5000.txt -c 24 -f neutral -x slim
 ```
-Usage for no migration model:
+Example usage for a no migration model:
 ```
-python neutral_tskit_to_msout_v3.py -d divergence_time -r replicates -s slim_script -p None -c 12 -f DFE -x slim_executable
+python neutral_tskit_to_msout_v3.py -d 5000 -r 10000 -s nomig_neutral_scaled.slim --prefix nomig_neutral_scaled -p None -c 24 -f neutral -x slim
 ```
-We used the following program versions:
-SLiM v4.0.1
-pyslim v1.0.3
-tskit v0.5.5
+
+### SLURM scripts used to simulate data on the IU HPC
+
+All SLURM scripts used to simulate data on the IU HPC can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/slim_simple))
+
+### Output files (ms-style)
+
+All simulated data, stored as ms-formatted output files, can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/data/simulations/simple/)
+
+
+
+
+
 
 ## Distributions of Fitness Effects (Complex Models)
 
