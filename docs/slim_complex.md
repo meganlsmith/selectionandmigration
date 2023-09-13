@@ -1,5 +1,5 @@
 ---
-title: SLiM
+title: SLiM (Complex)
 theme: minima
 ---
 
