@@ -1,4 +1,4 @@
 # selectionandmigration
-Scripts for understanding the impacts of selection on methods for inferring migration.
+This repository contains the scripts for 'Selection leads to false inferences of introgression using popular methods'.
 
-# Step 1: Data Simulation
+For scripts and documentation, please visit https://meganlsmith.github.io/selectionandmigration/.
