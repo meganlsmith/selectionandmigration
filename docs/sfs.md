@@ -6,6 +6,7 @@ theme: minima
 # Python script
 
 To construct the SFS for neutral and bgs cases, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/makesfs.py).
+
 To construct the SFS for sweep cases, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/makesfs_adaptive.py).
 
 Parameters for neutral/bgs cases:
