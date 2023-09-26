@@ -1,5 +1,5 @@
 ---
-title: Step 03: SFS
+title: Step 03-SFS
 theme: minima
 ---
 
