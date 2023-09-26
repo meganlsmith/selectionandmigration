@@ -1,5 +1,5 @@
 ---
-title: Step 02: SLiM (Complex)
+title: Step 02-SLiM (Complex)
 theme: minima
 ---
 
