@@ -1,8 +1,6 @@
 ---
 title: SFS
 theme: minima
-Nav_include: yes
-Nav_order: 4
 ---
 
 # Python script
