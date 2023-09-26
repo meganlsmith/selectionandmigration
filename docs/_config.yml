@@ -1,16 +1,14 @@
-
-
 ---
 title: Selection and Migration
 theme: minima
 ---
-
-plugins:
+header_files:
+  - index.md
+slim_simple.mdplugins:
   - jekyll-relative-links
 relative_links:
   enabled: true
   collections: true
 include:
-header_files:
-  - index.md
-  - slim_simple.md
+  header_files:
+    - index.md
