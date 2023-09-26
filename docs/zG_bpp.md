@@ -6,7 +6,7 @@ theme: minima
 # Input files
 
 1. Alignments 
-    The alignments used for BPP were generated as described [here](https://github.com/meganlsmith/selectionandmigration/blob/main/docs/alignments.md) and will be available in the Dryad repository for this project.
+    The alignments used for BPP were generated as described [here](https://github.com/meganlsmith/selectionandmigration/blob/main/docs/zF_alignments.md) and will be available in the Dryad repository for this project.
 
 2. Control file
     A [template control file](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable.bpp.ctl) is used by the python script for submitting BPP jobs.
