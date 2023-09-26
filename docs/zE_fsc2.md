@@ -7,7 +7,7 @@ theme: minima
 
 1. SFS
 
-    The SFS used for fastsimcoal were generated as described [here](https://github.com/meganlsmith/selectionandmigration/blob/main/docs/zC_sfs.md) and will be available in the Dryad repository for this project.
+    The SFS used for fastsimcoal were generated as described [here](zC_sfs.md) and will be available in the Dryad repository for this project.
 
 2. tpl files
 
