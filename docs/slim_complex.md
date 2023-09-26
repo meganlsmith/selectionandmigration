@@ -1,6 +1,7 @@
 ---
 title: SLiM (Complex)
 theme: minima
+order: 3
 ---
 
 # Complex Models
