@@ -1,5 +1,5 @@
 ---
-title: Step 01-SLiM (Simple)
+title: SLiM (Simple)
 theme: minima
 ---
 
