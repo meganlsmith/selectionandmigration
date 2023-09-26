@@ -49,13 +49,11 @@ python run_bpp_adaptive_v1a.py  -a nomig_linkedp1_1250_phy/ -b nomig_bgs_1250_50
 
 # Command
 
-The python commands used to run BPP on datasets with a simple genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bash/bpp/simple_bpp.sh).
+The python commands used to run BPP on datasets with a simple genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/simple_bpp.sh).
 
-The python commands used to run BPP on datasets with a complex genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bash/bpp/complex_bpp.sh).
+The python commands used to run BPP on datasets with a complex genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/complex_bpp.sh).
 
 # Output files
 
-To summarize BPP results, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results.py).
-
-The results from BPP runs under nomigration models were summarized using the python script [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results.py) and results are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/results/BPP/all_results.csv).
+The results from BPP runs under nomigration models were summarized using the python script [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results.py) and results are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/results/bpp/all_results.csv).
 
