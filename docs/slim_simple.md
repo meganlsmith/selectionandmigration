@@ -1,6 +1,7 @@
 ---
 title: SLiM (Simple)
 theme: minima
+order: 1
 ---
 
 # Simple Models
