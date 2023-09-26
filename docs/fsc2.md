@@ -13,11 +13,11 @@ theme: minima
 
     The tpl files used for fastsimcoal analyses under migration models are available here:
 
-        * [low divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Migration_1250.tpl)
+    * [low divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Migration_1250.tpl)
 
-        * [medium divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Migration_5000.tpl)
+    * [medium divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Migration_5000.tpl)
 
-        * [high divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Migration_20000.tpl)
+    * [high divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Migration_20000.tpl)
 
 
     The tpl files used for fastsimcoal analyses under divergence models are available here:
@@ -47,7 +47,7 @@ theme: minima
         * [medium divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Nomig_5000.est)
 
         * [high divergence](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/fsc2/Nomig_20000.est)
-        
+
 
 # SLURM scripts
 
