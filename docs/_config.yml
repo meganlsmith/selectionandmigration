@@ -11,3 +11,6 @@ relative_links:
   enabled: true
   collections: true
 include:
+header_files:
+  - index.md
+  - slim_simple.md
