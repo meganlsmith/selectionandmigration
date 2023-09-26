@@ -1,7 +1,8 @@
 ---
 title: fastsimcoal2
 theme: minima
-order: 5
+Nav_include: yes
+Nav_order: 5
 ---
 
 # fastsimcoal2 input files

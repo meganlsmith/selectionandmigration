@@ -1,7 +1,8 @@
 ---
 title: SLiM (Complex)
 theme: minima
-order: 3
+Nav_include: yes
+Nav_order: 3
 ---
 
 # Complex Models

@@ -1,7 +1,8 @@
 ---
 title: SLiM (Simple)
 theme: minima
-order: 2
+Nav_include: yes
+Nav_order: 2
 ---
 
 # Simple Models

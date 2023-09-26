@@ -1,7 +1,8 @@
 ---
 title: Overview
 theme: minima
-order: 1
+Nav_include: yes
+Nav_order: 1
 ---
 
 This is a project page for understanding the impacts of selection on inferences of migration.
