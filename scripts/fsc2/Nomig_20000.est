@@ -1,0 +1,14 @@
+// Priors and rules file
+// *********************
+[PARAMETERS]
+//#isInt? #name #dist.#min #max
+//all Ns are in number of haploid individuals
+1 TDIV$ unif 10000 4000000 output
+1 NANC$ unif 1250 625000 output
+0 V1$ unif 1e-2 5 output
+0 V2$ unif 1e-2 5 output
+
+[COMPLEX PARAMETERS]
+1 N1$ = NANC$*V1$ hide
+1 N2$ = NANC$*V2$ hide
+0 Nmult$ = NANC$/N2$ hide

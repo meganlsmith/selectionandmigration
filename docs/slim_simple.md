@@ -32,7 +32,7 @@ We used the following program versions:
 
 ### Step 1: Sample parameters
 
-To sample parameters, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sample_parameters_slim.py).  
+To sample parameters, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/slim/sample_parameters_slim.py).  
 Parameters:
 
 ```
@@ -47,7 +47,7 @@ python sample_parameters_slim.py -s p1_p2_neutral_scaled.slim -r 10000 -d 5000
 
 ### Step 2: Simulate data
 
-To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/neutral_tskit_to_msout_v3.py).
+To simulate data, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/slim/neutral_tskit_to_msout_v3.py).
 
 Parameters:
 ```

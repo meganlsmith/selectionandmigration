@@ -5,9 +5,9 @@ theme: minima
 
 # Python script
 
-To construct the SFS for neutral and bgs cases, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/makesfs.py).
+To construct the SFS for neutral and bgs cases, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sfs/makesfs.py).
 
-To construct the SFS for sweep cases, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/makesfs_adaptive.py).
+To construct the SFS for sweep cases, use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/sfs/makesfs_adaptive.py).
 
 Parameters for neutral/bgs cases:
 ```
@@ -47,7 +47,7 @@ python makesfs_adaptive.py --input nomig_linkedp1_scaled_1250/ --output1 dadi/no
 
 # SLURM scripts
 
-All SLURM scripts used to simulate data on the IU HPC can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/sfs).
+All SLURM scripts used to build SFS on the IU HPC can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/sfs).
 
 # Output files
 
