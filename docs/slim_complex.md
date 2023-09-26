@@ -68,7 +68,7 @@ python tskit_Drosophilamaps_to_msout_v2.py -d 5000 -r 10000 -s p1_p2_neutral_dro
 ```
 Example usage for a no migration model:
 ```
-python tskit_Drosophilamaps_to_msout_v2.py -d 5000 -r 10000 -s .nomig_neutral_drosophila.slim --prefix nomig_neutral_drosophila -p None -c 24 -f neutral -x slim
+python tskit_Drosophilamaps_to_msout_v2.py -d 5000 -r 10000 -s nomig_neutral_drosophila.slim --prefix nomig_neutral_drosophila -p None -c 24 -f neutral -x slim
 ```
 
 ### SLURM scripts used to simulate data on the IU HPC
