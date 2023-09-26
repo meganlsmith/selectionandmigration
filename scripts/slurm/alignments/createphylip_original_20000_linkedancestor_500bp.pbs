@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH -A general
+#SBATCH -J SLiM_linkedancestor_20000                                   
+#SBATCH -p general
+#SBATCH -o SLiM_linkedancestor_20000_%j.txt
+#SBATCH -e SLiM_linkedancestor_20000_%j.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=10:00:00
+
+module load python
+
+python ./python_scripts/msout_to_phylip.py -m ../SLiM-testing-redo/testingSims_20000/nomig_linkedancestor.msOut -l 500 -n 1500 -o ./alignments/SLiM-testing-redo/nomig_linkedancestor_20000_phy 
+python ./python_scripts/msout_to_phylip.py -m ../SLiM-testing-redo/testingSims_20000/p1_p2_linkedancestor.msOut -l 500 -n 1500 -o ./alignments/SLiM-testing-redo/p1_p2_linkedancestor_20000_phy
+python ./python_scripts/msout_to_phylip.py -m ../SLiM-testing-redo/testingSims_20000/p2_p1_linkedancestor.msOut -l 500 -n 1500 -o ./alignments/SLiM-testing-redo/p2_p1_linkedancestor_20000_phy
+
+
+ 

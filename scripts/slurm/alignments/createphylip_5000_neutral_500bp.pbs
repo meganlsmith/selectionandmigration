@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH -A general
+#SBATCH -J DROSOPHILA_neutral_5000                                 
+#SBATCH -p general
+#SBATCH -o DROSOPHILA_neutral_5000_%j.txt
+#SBATCH -e DROSOPHILA_neutral_5000_%j.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=10:00:00
+
+module load python
+
+python ./python_scripts/msout_to_phylip.py -m ../DROSOPHILA-testing-redo/testingSims_5000/nomig_neutral.msOut -l 500 -n 10000 -o ./alignments/DROSOPHILA-testing-redo/nomig_neutral_5000_500bp_phy 
+python ./python_scripts/msout_to_phylip.py -m ../DROSOPHILA-testing-redo/testingSims_5000/p1_p2_neutral.msOut -l 500 -n 10000 -o ./alignments/DROSOPHILA-testing-redo/p1_p2_neutral_5000_500bp_phy
+python ./python_scripts/msout_to_phylip.py -m ../DROSOPHILA-testing-redo/testingSims_5000/p2_p1_neutral.msOut -l 500 -n 10000 -o ./alignments/DROSOPHILA-testing-redo/p2_p1_neutral_5000_500bp_phy
+
+
+ 

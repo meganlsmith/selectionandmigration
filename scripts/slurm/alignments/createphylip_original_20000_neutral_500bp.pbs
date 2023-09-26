@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH -A general
+#SBATCH -J SLiM_neutral_20000                                   
+#SBATCH -p general
+#SBATCH -o SLiM_neutral_20000_%j.txt
+#SBATCH -e SLiM_neutral_20000_%j.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=10:00:00
+
+module load python
+
+python ./python_scripts/msout_to_phylip.py -m ../SLiM-testing-redo/testingSims_20000/nomig_neutral.msOut -l 500 -n 10000 -o ./alignments/SLiM-testing-redo/nomig_neutral_20000_500bp_phy 
+python ./python_scripts/msout_to_phylip.py -m ../SLiM-testing-redo/testingSims_20000/p1_p2_neutral.msOut -l 500 -n 10000 -o ./alignments/SLiM-testing-redo/p1_p2_neutral_20000_500bp_phy
+python ./python_scripts/msout_to_phylip.py -m ../SLiM-testing-redo/testingSims_20000/p2_p1_neutral.msOut -l 500 -n 10000 -o ./alignments/SLiM-testing-redo/p2_p1_neutral_20000_500bp_phy
+
+
+ 
