@@ -6,7 +6,7 @@ theme: minima
 # Input files
 
 1. Alignments 
-    The alignments used for BPP were generated as described [here](zF_alignments.md) and will be available in the Dryad repository for this project.
+    The alignments used for BPP were generated as described [here](zF_alignments.md) and will be available in the Dryad repository for this project. Note that the python scripts for running bpp subsample these alignments.
 
 2. Control file
     A [template control file](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable.bpp.ctl) is used by the python script for submitting BPP jobs.
@@ -15,7 +15,7 @@ theme: minima
 # Python scripts
 
 
-To submit BPP jobs under BGS and neutral models use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_v1a.py).
+To submit BPP jobs under BGS and neutral models use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_heredity_longer_v1a.py). This script uses a template contro lfile available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable_heredity_longer.bpp.ctl).
 
 Parameters:
 ```
@@ -27,10 +27,10 @@ Parameters:
 
 Example usage:  
 ```
-python run_bpp_v1a.py -a nomig_bgs_1250_500bp_phy/ -o ./bpp_input/ -p ./bpp_output/ --prefix nomig_bgs_scaled_1250
+python run_bpp_heredity_longer_v1a.py -a nomig_bgs_1250_500bp_phy/ -o ./bpp_input/ -p ./bpp_output/ --prefix nomig_bgs_scaled_1250
 ```
 
-To submit BPP jobs under sweep models use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_adaptive_v1a.py).
+To submit BPP jobs under sweep models use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_adaptive_heredity_longer_v1a.py). This script uses a template contro lfile available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable_heredity_longer.bpp.ctl).
 
 Parameters:
 ```
@@ -44,7 +44,7 @@ Parameters:
 
 Example usage:  
 ```
-python run_bpp_adaptive_v1a.py  -a nomig_linkedp1_1250_phy/ -b nomig_bgs_1250_500bp_phy/ -o bpp_input/SLiM-testing-redo/ -p bpp_output/SLiM-testing-redo/ --prefix nomig_linkedp1_1250_5percent --percent 5
+python run_bpp_adaptive_heredity_longer_v1a.py  -a nomig_linkedp1_1250_phy/ -b nomig_bgs_1250_500bp_phy/ -o bpp_input/SLiM-testing-redo/ -p bpp_output/SLiM-testing-redo/ --prefix nomig_linkedp1_1250_5percent --percent 5
 ```
 
 # Command

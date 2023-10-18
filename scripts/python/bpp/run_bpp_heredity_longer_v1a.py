@@ -36,18 +36,10 @@ for item in chunks:
     count+=1
 
     # concatenate the loci files
-    outlocus = options.outputfolder + '/' + options.prefix + '_' + str(count) + '_alignment.phy'
-
-    with open(outlocus, 'w') as outf:
-        for locus in item:
-            name = options.alignmentfolder + '/alignment_' + str(locus+1) + '.phy'
-            with open(name, 'r') as inf:
-                for line in inf.readlines(): 
-                    outf.write(line)
-            outf.write('\n')
+    outlocus = options.alignmentfolder + '/' + options.prefix + '_' + str(count) + '_alignment.phy'
 
     # create the .ctl file
-    template = open('/N/project/Prophysaongenomics/FILET_Organized_24January2023/bpp/bpp_templates/A00_variable.bpp.ctl', 'r')
+    template = open('./bpp_templates/A00_variable_heredity_longer.bpp.ctl', 'r')
     templatelines = template.readlines()
     template.close()
     newfile = options.outputfolder + '/' +  options.prefix + '_' + str(count) + '.ctl'
@@ -72,7 +64,7 @@ for item in chunks:
 
     with open(pbsfilename, 'w') as f:
         f.write('#!/bin/bash\n')
-        f.write('#SBATCH -A general')
+        f.write('#SBATCH -A r00279')
         f.write('#SBATCH -J bpp_%s_%s\n' % (options.prefix, str(count)))
         f.write('#SBATCH -p general\n')
         f.write('#SBATCH -o bpp_%s_%s.out\n' % (options.prefix, str(count)))

@@ -11,8 +11,6 @@ import pandas as pd
 parser = OptionParser()
 parser.add_option("-a","--alignmentfolder", help="folder with phylip formatted alignments.",
                     action="store", type="string", dest="alignmentfolder")
-parser.add_option("-b","--backgroundfolder", help="folder with phylip formatted background alignments.",
-                    action="store", type="string", dest="backgroundfolder")
 parser.add_option("-o","--outputfolder", help="Destination of output files.",
                     action="store", type="string", dest="outputfolder")
 parser.add_option("-p","--outputfolder2", help="Destination of output files 2.",
@@ -28,44 +26,14 @@ parser.add_option("--percent", help="Percent adaptive to sample.",
 os.system('mkdir -p %s' % options.outputfolder)
 os.system('mkdir -p %s' % options.outputfolder2)
 
-# first draw which adaptive alignments to sample
-numberadaptive = int(10000 * int(options.percent) / 100)
-numberbackground = 10000 - numberadaptive
 
-adaptivelocilist = [*range(numberadaptive)]
-bglocilist = [*range(numberbackground)]
-
-
-# break this into 20 lists
-adaptiveperchunk = int(numberadaptive / 20)
-bgperchunk = int(numberbackground / 20)
-
-adaptivechunks = [adaptivelocilist[x:x+adaptiveperchunk] for x in range(0, len(adaptivelocilist), adaptiveperchunk)]
-bgchunks = [bglocilist[x:x+bgperchunk] for x in range(0, len(bglocilist), bgperchunk)]
-
-for item in range(len(adaptivechunks)):
-
+#for item in range(20):
+for item in range(20,21):
     # concatenate the loci files
-    outlocus = options.outputfolder + '/' + options.prefix + '_' + str(item+1) + '_alignment.phy'
-
-    with open(outlocus, 'w') as outf:
-        adaptiveloci = adaptivechunks[item]
-        bgloci = bgchunks[item]
-        for locus in adaptiveloci:
-            name = options.alignmentfolder + '/alignment_' + str(locus+1) + '.phy'
-            with open(name, 'r') as inf:
-                for line in inf.readlines(): 
-                    outf.write(line)
-            outf.write('\n')
-        for locus in bgloci:
-            name = options.backgroundfolder + '/alignment_' + str(locus+1) + '.phy'
-            with open(name, 'r') as inf:
-                for line in inf.readlines(): 
-                    outf.write(line)
-
+    outlocus = options.alignmentfolder + '/' + options.prefix + '_' + str(item+1) + '_alignment.phy'
 
     # create the .ctl file
-    template = open('/N/project/Prophysaongenomics/FILET_Organized_24January2023/bpp/bpp_templates/A00_variable.bpp.ctl', 'r')
+    template = open('./bpp_templates/A00_variable_heredity_longer.bpp.ctl', 'r')
     templatelines = template.readlines()
     template.close()
     newfile = options.outputfolder + '/' +  options.prefix + '_' + str(item+1) + '.ctl'
@@ -90,11 +58,11 @@ for item in range(len(adaptivechunks)):
 
     with open(pbsfilename, 'w') as f:
         f.write('#!/bin/bash\n')
-        f.write('#SBATCH -A general')
+        f.write('#SBATCH -A r00279')
         f.write('#SBATCH -J bpp_%s_%s\n' % (options.prefix, str(item+1)))
         f.write('#SBATCH -p general\n')
-        f.write('#SBATCH -o bpp_%s_%s.out\n' % (options.prefix, str(item+1)))
-        f.write('#SBATCH -e bpp_%s_%s.err\n' % (options.prefix, str(item+1)))
+        f.write('#SBATCH -o bpp_%s_%s_%s.out\n' % ('%j',options.prefix, str(item+1)))
+        f.write('#SBATCH -e bpp_%s_%s_%s.err\n' % ('%j',options.prefix, str(item+1)))
         f.write('#SBATCH --nodes=1\n')
         f.write('#SBATCH --ntasks-per-node=1\n')
         f.write('#SBATCH --time=96:00:00\n\n')
