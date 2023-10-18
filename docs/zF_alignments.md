@@ -28,5 +28,5 @@ All SLURM scripts used to build alignments on the IU HPC can be found [here](htt
 
 # Output files
 
-All alignments will be deposited into the Dryad repository for this project.
+All alignments are available on Figshare (DOI: 10.6084/m9.figshare.24354277).
  

@@ -51,5 +51,5 @@ All SLURM scripts used to build SFS on the IU HPC can be found [here](https://gi
 
 # Output files
 
-All SFS will be deposited into the Dryad repository for this project.
+All SFS are available on Figshare (DOI: 10.6084/m9.figshare.24354277).
  

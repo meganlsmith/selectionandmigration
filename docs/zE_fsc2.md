@@ -7,7 +7,7 @@ theme: minima
 
 1. SFS
 
-    The SFS used for fastsimcoal were generated as described [here](zC_sfs.md) and will be available in the Dryad repository for this project.
+    The SFS used for fastsimcoal were generated as described [here](zC_sfs.md) and are available on Figshare.
 
 2. tpl files
 

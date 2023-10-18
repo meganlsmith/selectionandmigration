@@ -77,5 +77,5 @@ All SLURM scripts used to simulate data on the IU HPC can be found [here](https:
 
 ### Output files (ms-style)
 
-All simulated data, stored as ms-formatted output files, will be placed in the Dryad repository for this project.
-Parameters files will also be placed in the Dryad repository for this project.
+All simulated data, stored as ms-formatted output files, are available from Figshare (DOI: 10.6084/m9.figshare.24354277).
+Parameters files are also available from Figshare (DOI: 10.6084/m9.figshare.24354277).

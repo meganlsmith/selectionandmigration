@@ -7,7 +7,7 @@ theme: minima
 
 1. SFS
 
-    The SFS used for ∂a∂i were generated as described [here](zC_sfs.md) and will be available in the Dryad repository for this project.
+    The SFS used for ∂a∂i were generated as described [here](zC_sfs.md) and are available on Figshare.
 
 # python scripts
 
