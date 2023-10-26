@@ -55,5 +55,5 @@ The python commands used to run BPP on datasets with a complex genomic architect
 
 # Output files
 
-The results from BPP runs under nomigration models were summarized using the python script [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results.py) and results are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/results/bpp/all_results.csv).
+The results from BPP runs under nomigration models were summarized using the python script [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results.py) and results are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/results/bpp/all_results_heredity_longer.csv).
 
