@@ -17,11 +17,15 @@ We considered several different models, all implemented in SLiM, tskit, and pysl
 
 ## [∂a∂i](zD_dadi.md)
 
-## [fastsimcoal2](zE_fsc2.md)
+## [fastsimcoal2](zF_fsc2.md)
 
 # BPP
 
-## [Building the alignments](zF_alignments.md)
+## [Running BPP](zG_bpp.md)]
 
-## [Running BPP](zG_bpp.md)
+## [Bayes Factors](zH_bayefactor.md)
+
+# Summary Statistics
+
+## [Calculate Statistics](zI_summarystatistics.md)
 
