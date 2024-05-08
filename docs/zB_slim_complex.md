@@ -19,7 +19,7 @@ We used the following program versions:
 
 ## Distributions of Fitness Effects
 1. Neutral  
-([neutral-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/nomig_neutral_drosophila.slim), [neutral-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/slim/complex/simple/p1_p2_neutral_drosophila.slim))  
+([neutral-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/nomig_neutral_drosophila.slim), [neutral-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/slim/complex/p1_p2_neutral_drosophila.slim))  
 2. Background Selection  
 ([bgs-nomig](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/nomig_bgs_drosophila.slim), [bgs-p1_p2](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slim/complex/p1_p2_bgs_drosophila.slim))  
 3. Selective Sweep in P1  

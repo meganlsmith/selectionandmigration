@@ -21,7 +21,7 @@ We considered several different models, all implemented in SLiM, tskit, and pysl
 
 # BPP
 
-## [Running BPP](zG_bpp.md)]
+## [Running BPP](zG_bpp.md)
 
 ## [Bayes Factors](zH_bayefactor.md)
 
