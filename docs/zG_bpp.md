@@ -6,7 +6,7 @@ theme: minima
 # Input files
 
 1. Control file
-    A [template control file](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable.bpp.ctl) is used by the python script for submitting BPP jobs.
+    A [template control file](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable_heredity_longer.bpp.ctl) is used by the python script for submitting BPP jobs.
 
 # Create alignments
 1. Create alignments using these four scripts:
