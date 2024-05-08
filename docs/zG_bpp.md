@@ -5,17 +5,20 @@ theme: minima
 
 # Input files
 
-1. Alignments 
-    The alignments used for BPP were generated as described [here](zF_alignments.md) and will be available in the Dryad repository for this project. Note that the python scripts for running bpp subsample these alignments.
-
-2. Control file
+1. Control file
     A [template control file](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable.bpp.ctl) is used by the python script for submitting BPP jobs.
 
+# Create alignments
+1. Create alignments using these four scripts:
+    [Uniform](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/bpp/create_alignments_slim.sh)
+    [Uniform-adaptive](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/bpp/create_alignments_adaptive_slim.sh)
+    [Complex](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/bpp/create_alignments_drosophila.sh)
+    [Complex-adaptive](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/bpp/create_alignments_adaptive_drosophila.sh)
 
 # Python scripts
 
 
-To submit BPP jobs under BGS and neutral models use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_heredity_longer_v1a.py). This script uses a template contro lfile available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable_heredity_longer.bpp.ctl).
+To submit BPP jobs use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_heredity_longer_v1a.py). This script uses a template contro lfile available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable_heredity_longer.bpp.ctl).
 
 Parameters:
 ```
@@ -27,33 +30,18 @@ Parameters:
 
 Example usage:  
 ```
-python run_bpp_heredity_longer_v1a.py -a nomig_bgs_1250_500bp_phy/ -o ./bpp_input/ -p ./bpp_output/ --prefix nomig_bgs_scaled_1250
-```
-
-To submit BPP jobs under sweep models use this [python script](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/run_bpp_adaptive_heredity_longer_v1a.py). This script uses a template contro lfile available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/A00_variable_heredity_longer.bpp.ctl).
-
-Parameters:
-```
-"-a","--alignmentfolder", help="folder with phylip formatted alignments.", type="string"
-"-b","--backgroundfolder", help="folder with phylip formatted background alignments.", type="string"
-"-o","--outputfolder", help="Destination of bpp input files.", type="string"
-"-p","--outputfolder2", help="Destination of bpp output files.", type="string"
-"--prefix", help="Prefix for naming output files.", type="string
-"--percent", help="Percent adaptive to sample.", type="string"
-```
-
-Example usage:  
-```
-python run_bpp_adaptive_heredity_longer_v1a.py  -a nomig_linkedp1_1250_phy/ -b nomig_bgs_1250_500bp_phy/ -o bpp_input/SLiM-testing-redo/ -p bpp_output/SLiM-testing-redo/ --prefix nomig_linkedp1_1250_5percent --percent 5
+python python_scripts/run_bpp_heredity_longer_v1a.py -a ./bpp_alignments/ --outputfolder ./bpp_ctl/ --outputfolder2 ./bpp_output/ --prefix nomig_neutral_scaled_1250
 ```
 
 # Command
 
-The python commands used to run BPP on datasets with a simple genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/simple_bpp.sh).
+The python commands used to run BPP on datasets with a simple genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/submit_bpp_slim.sh).
 
-The python commands used to run BPP on datasets with a complex genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/complex_bpp.sh).
+The python commands used to run BPP on datasets with a complex genomic architecture are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/bpp/submit_bpp_drosophila.sh).
 
 # Output files
 
-The results from BPP runs under nomigration models were summarized using the python script [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results.py) and results are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/results/bpp/all_results_heredity_longer.csv).
+All alignments are available on Figshare (DOI: 10.6084/m9.figshare.24354277).
+
+The results from BPP runs were summarized using the python script [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/python/bpp/process_results_heredity_longer.py) and results are available [here](https://github.com/meganlsmith/selectionandmigration/blob/main/results/bpp/all_results_heredity_longer.csv).
 

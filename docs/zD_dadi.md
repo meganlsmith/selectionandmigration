@@ -34,7 +34,6 @@ Example usage:
 python run_dadi.py --input nomig_neutral_scaled_1250/ --output dadi_results/ --prefix nomig_neutral_scaled_1250
 ```
 
-
 # SLURM scripts
 
 All SLURM scripts used to run ∂a∂i IU HPC can be found [here](https://github.com/meganlsmith/selectionandmigration/blob/main/scripts/slurm/dadi).

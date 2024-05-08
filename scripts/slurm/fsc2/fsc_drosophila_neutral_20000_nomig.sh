@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH -A general
+#SBATCH -A r00279
 #SBATCH -J fsc_neutral_drosophila_20000_nomig
 #SBATCH -p general
 #SBATCH -o fsc_neutral_drosophila_20000_nomig_%j.txt
 #SBATCH -e fsc_neutral_drosophila_20000_nomig_%j.err
-#SBATCH --mail-type=ALL
+#SBATCH --mail-type=FAIL
 #SBATCH --mail-user=mls16@iu.edu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -22,13 +22,13 @@
 # -u Generates or uses multidimensional SFS.
 # -c Number of threads to use.
 
-mkdir -p DROSOPHILA-testing-redo/fsc_neutral_drosophila_20000_nomig
-cd DROSOPHILA-testing-redo/fsc_neutral_drosophila_20000_nomig
+mkdir -p DROSOPHILA-testing-redo-revisions-v2/fsc_neutral_drosophila_20000_nomig
+cd DROSOPHILA-testing-redo-revisions-v2/fsc_neutral_drosophila_20000_nomig
 for i in {0..100}
 do
   mkdir -p rep_$i;
   cd rep_$i;
-  cp ../../../../SFS-redo/DROSOPHILA-testing-redo/fsc/nomig_neutral_drosophila_20000/rep_$i.fs ./Migration_20000_DSFS.obs;
+  cp ../../../../SFS-redo-revision/DROSOPHILA-testing-redo-revisions-v2/fsc/nomig_neutral_drosophila_20000/rep_$i.fs ./Migration_20000_DSFS.obs;
   cp ../../../fsc_files/Migration_20000.tpl ./;
   cp ../../../fsc_files/Migration_20000.est ./;
   ../../../programs/fsc27_linux64_new/fsc27093 -t Migration_20000.tpl -e Migration_20000.est -n 100000 -d -M -L 40 -q -u -c 24;

@@ -1,43 +1,35 @@
-// set up a simulation
+// set up the first simulation
+// this is a pulse of migration from population 1 into population 2 
+// there is no selection
+// neutral mutations are added after the fact via tree sequence recording
+
+
 initialize() {
 	// initialize tree sequence recording
 	initializeTreeSeq();
-	defineConstant("burnin", 25000);
-
-	// draw mutation rate 
+	
+	// all mutations are neutral
 	initializeMutationRate(0);
 	
-	// set up mutation classes
-	initializeMutationType("m1", 0.5, "f", 0.0);  //neutral
-
-	// make the genomic element types
-	initializeGenomicElementType("g1", c(m1), c(1)); //unconstrained
+	// m1 mutation type: deleterious (doesn't matter b/c mutation rate is zero)
+	initializeMutationType("m1", 0.5, "f", 0);
 	
-	initializeGenomicElement(g1, 0, 9999); // all neutral
-
-	// read recombinationr ate
-        lines = readFile("rfile_"+rep+".txt");
-	rates = NULL;
-	ends = NULL;
-	for (line in lines)
-	{
-		components = strsplit(line, "\t");
-		ends = c(ends, asInteger(components[0]));
-		rates = c(rates, asFloat(components[1]));
-	}
-	rates = rates * 100; // to scale
-	initializeRecombinationRate(rates, ends);
+	// g1 genomic element type: uses m1 for all mutations
+	initializeGenomicElementType("g1", m1, 1.0);
+	
+	// uniform chromosome of length 10 kb with uniform recombination
+	initializeGenomicElement(g1, 0, 9999);
+	initializeRecombinationRate(recrate);
 }
 
-// create a population of 125000 individuals
+// create a population of npop individuals
 1 early() {
-	sim.addSubpop("p1", 1250);
-	sim.addSubpopSplit("p2", 1250, p1); 
-	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
-
 	community.rescheduleScriptBlock(s1, asInteger(divtime) - asInteger(tmig), asInteger(divtime) - asInteger(tmig));
 	community.rescheduleScriptBlock(s2, asInteger(divtime) - asInteger(tmig)+1, asInteger(divtime) - asInteger(tmig)+1);
 	community.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+	sim.addSubpop("p1", npop);
+	sim.addSubpopSplit("p2", npop, p1); 
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
 }
 
 
@@ -56,3 +48,4 @@ s3 13750 late() {
 	name = "p1_p2_neutral_drosophila_"+rep+".trees";
 	sim.treeSeqOutput(name);
 }
+

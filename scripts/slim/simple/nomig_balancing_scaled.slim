@@ -1,0 +1,75 @@
+// set up the first simulation
+// this is no migration
+// there is balancing selection
+// neutral mutations are added after the fact via tree sequence recording
+
+initialize() {
+	
+	// initialize tree sequence recording
+	initializeTreeSeq();
+		
+	//mutation rate is zero because we will add neutral mutations later
+	initializeMutationRate(0);
+	
+	// m2 mutation type:  balancing (fitness effect modified later)
+	initializeMutationType("m2", 0.5, "f", 0.0);
+	
+	// g1 genomic element type: uses m2 for all mutations
+	initializeGenomicElementType("g1", m2, 1.0);
+	
+	// uniform chromosome of length kb with uniform recombination
+	initializeGenomicElement(g1, 0, 9999);
+	initializeRecombinationRate(recrate);
+}
+
+
+// create a population of npop individuals (npop already scaled, divtime already scaled)
+1 early() {
+	defineConstant("simID", getSeed());
+	sim.addSubpop("p1", npop);
+
+        community.rescheduleScriptBlock(s1, 1, asInteger(divtime)+burnin);
+	community.rescheduleScriptBlock(s2, burnin, burnin);
+	community.rescheduleScriptBlock(s3, asInteger(divtime)+burnin, asInteger(divtime)+burnin);
+
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+}
+
+// add the mutation under balancing selection
+1 late() {
+	target = sample(p1.genomes, 1);
+	target.addNewDrawnMutation(m2, 4999);
+	sim.treeSeqOutput("/tmp/"+rep+"slim_" + simID + ".trees");
+}
+
+// start over if mutation lost
+s1 1: late() {
+	mut = sim.mutationsOfType(m2);
+	if (size(mut) == 0)
+	{
+		cat(getSeed() + ": LOST – RESTARTING\n");
+		sim.readFromPopulationFile("/tmp/"+rep+"slim_" + simID + ".trees");
+		setSeed(rdunif(1, 0, asInteger(2^62) - 1));
+	}
+}
+
+
+// split the two populations
+s2 25000 early() {
+	sim.addSubpopSplit("p2", npop, p1);
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+}
+
+s3 13750 late() {
+	cat("Final random seed: " + getSeed() + "\n");
+	name = "nomig_balancing_scaled_"+rep+".trees";
+	sim.treeSeqOutput(name);
+}
+
+// change fitness of individuals with m2
+mutationEffect(m2, p1) {
+	return 1.5 - sim.mutationFrequencies(p1, mut);
+}
+mutationEffect(m2, p2) {
+	return 1.5 - sim.mutationFrequencies(p2, mut);
+}

@@ -25,8 +25,7 @@ def pickRandomWindowAnyStart(L, chrLens, state=None):
     chrs = sorted(chrLensTrunc)
     denom = float(sum(chrLensTrunc.values()))
     weights = [chrLensTrunc[x]/denom for x in chrs]
-    if state:
-        np.random.set_state(state)
+    np.random.seed(state)
     winC = np.random.choice(chrs, p=weights)
     winStart = np.random.randint(1, chrLens[winC]+1)
     return winC, winStart, winStart+L-1
@@ -57,7 +56,7 @@ def readGapFile(gapFileName, chrLens, L, subWinSize):
                     if not c in gapData:
                         gapData[c] = np.zeros(chrLens[c], dtype=bool)
                     for posMinusOne in range(int(s), int(e)):
-                        gapData[c][posMinusOne] = True
+                       gapData[c][posMinusOne] = True
     for c in gapData:
         gapFracsForC = {}
         lastWinEnd = chrLens[c]-(chrLens[c]%L)
@@ -82,8 +81,7 @@ def pickRandomWindow(L, chrLens, gapFileName=None, numSubWins=1, state=None):
     denom = sum(totalPossibleWinStartsPerChr.values())
     weights = [totalPossibleWinStartsPerChr[x]/denom for x in chrs]
 
-    if state:
-        np.random.set_state(state)
+    np.random.seed(state)
 
     goodWinChosen = False
     tries = 0

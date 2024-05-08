@@ -42,7 +42,7 @@ Parameters for adaptive cases:
 ```
 Example usage for adaptive cases:  
 ```
-python makesfs_adaptive.py --input nomig_linkedp1_scaled_1250/ --output1 dadi/nomig_linkedp1_scaled_1250_5percent/ --output2 fsc/nomig_linkedp1_scaled_1250_5percent/ --reps 100 --npop0 20 --npop1 20 --max 10000 --maxadapt 1500 --percent 5 --background nomig_bgs_scaled_1250/ --length 10000
+python makesfs_adaptive.py --input nomig_linkedp1_scaled_1250/ --output1 dadi/nomig_linkedp1_scaled_1250_5percent/ --output2 fsc/nomig_linkedp1_scaled_1250_5percent/ --reps 100 --npop0 20 --npop1 20 --max 10000 --maxadapt 1500 --percent 5 --background nomig_neutral_scaled_1250/ --length 10000
 ```
 
 # SLURM scripts

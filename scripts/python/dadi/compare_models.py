@@ -10,14 +10,15 @@ import scipy.stats as stats
 # get a list of all results files
 results = os.listdir('results')
 
-# temporarily remove linked and adaptiveint results
-#results = [x for x in results if 'linked' not in x]
-#results = [x for x in results if 'adaptive' not in x]
-
 # keep only the nomig results
 results = [x for x in results if 'nomig' in x]
 results_nomigmodel = [x for x in results if 'nomigmodel' in x]
 results_migmodel = [x for x in results if x not in results_nomigmodel]
+
+# filter out things for which we have a 'final' file
+results_final = [x for x in results_nomigmodel if 'final' in x]
+results_final_comp = [x.split('_final')[0]+'.txt' for x in results_final]
+results_nomigmodel = [x for x in results_nomigmodel if x not in results_final_comp]
 
 # create empty pandas dataframe for storing resultsi
 columns = ['genome', 'model', 'dfe', 'percent', 'T', 'lhood_mig', 'nu1_mig', 'nu2_mig', 'tau_mig', 'm12_mig', 'm21_mig', 'theta0_mig', 'lhood_nomig', 'nu1_nomig', 'nu2_nomig', 'tau_nomig', 'theta0_nomig', 'LRT_stat', 'p_value']
@@ -29,6 +30,8 @@ for filename in results_migmodel:
     # get filename
     mig_file = os.path.join('results', filename)
     nomig_filename = filename.split('fits')[0] + 'nomigmodel_fits.txt'
+    if nomig_filename in results_final_comp:
+        nomig_filename = filename.split('fits')[0] + 'nomigmodel_fits_final.txt'
     nomig_file = os.path.join('results', nomig_filename)
 
     # get basic info

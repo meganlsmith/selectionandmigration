@@ -35,9 +35,10 @@ def get_snps(input_directory, maxfiles, percent, background_directory, reps, max
                 num = x.split('_')[4]
             if int(num) <= maxfiles:
                 keep_background.append(x)
-        background_files = sorted(keep_background)
+        background_files = sorted(keep_background, key=lambda x: int(x.split('_')[-3]))
     else:
         background_files = sorted(background_files)
+        background_files = sorted(background_files, key=lambda x: int(x.split('_')[-3]))
 
     # keep only correct number of input files (in the case of test, where we have 2,000, this is a necesary step for consistency.
     if maxadaptivefiles < len(msout_files):
@@ -49,10 +50,11 @@ def get_snps(input_directory, maxfiles, percent, background_directory, reps, max
                 num = x.split('_')[4]
             if int(num) <= maxadaptivefiles:
                 keep_input.append(x)
-        msout_files = sorted(keep_input)
+        msout_files = sorted(keep_input, key=lambda x: int(x.split('_')[-3]))
     else:
         msout_files = sorted(msout_files)
-    
+        msout_files = sorted(msout_files, key=lambda x: int(x.split('_')[-3]))
+ 
     # sample specified percent from msout_files and remainder from background
     snp_replicates = []
     monomorphic_list = []
@@ -69,22 +71,38 @@ def get_snps(input_directory, maxfiles, percent, background_directory, reps, max
         with open(os.path.join(input_directory, file), 'r') as f:
             snpline = [x for x in f.readlines() if 'segsites' in x]
             nsites = int(snpline[0].split(": ")[1])
-            seg_sites_adaptive.append(nsites)
             toskip = 5
         data = pd.read_fwf(os.path.join(input_directory, file), skiprows=toskip, header=None, widths=[1]*nsites)
         data_matrix = data.to_numpy()
-        snps_adaptive.append(data_matrix)
+
+        mask = np.any((data_matrix != 0) & (data_matrix != 1), axis=0)
+        filtered_data_matrix = data_matrix[:, ~mask]
+        unique_elements = [np.unique(filtered_data_matrix[:, i]) for i in range(filtered_data_matrix.shape[1])]
+        variable_columns = [i for i, unique_vals in enumerate(unique_elements) if len(unique_vals) > 1]
+        filtered_data_matrix = filtered_data_matrix[:, variable_columns]
+
+        snps_adaptive.append(filtered_data_matrix)
+        filtered_seg_sites = filtered_data_matrix.shape[1]
+        seg_sites_adaptive.append(filtered_seg_sites)
 
     # loop through input and store data as a matrix in the list of snps.
     for file in background_files:
         with open(os.path.join(background_directory, file), 'r') as f:
             snpline = [x for x in f.readlines() if 'segsites' in x]
             nsites = int(snpline[0].split(": ")[1])
-            seg_sites_background.append(nsites)
             toskip = 5
         data = pd.read_fwf(os.path.join(background_directory, file), skiprows=toskip, header=None, widths=[1]*nsites)
         data_matrix = data.to_numpy()
-        snps_background.append(data_matrix)
+
+        mask = np.any((data_matrix != 0) & (data_matrix != 1), axis=0)
+        filtered_data_matrix = data_matrix[:, ~mask]
+        unique_elements = [np.unique(filtered_data_matrix[:, i]) for i in range(filtered_data_matrix.shape[1])]
+        variable_columns = [i for i, unique_vals in enumerate(unique_elements) if len(unique_vals) > 1]
+        filtered_data_matrix = filtered_data_matrix[:, variable_columns]
+
+        snps_background.append(filtered_data_matrix)
+        filtered_seg_sites = filtered_data_matrix.shape[1]
+        seg_sites_background.append(filtered_seg_sites)
 
     snp_replicates = []
     for rep in range(reps):
@@ -103,19 +121,15 @@ def get_snps(input_directory, maxfiles, percent, background_directory, reps, max
 
         snp_replicates.append(sampled_snps)
         monomorphics = sum([int(round((length - x) * (1/x))) for x in sampled_seg_sites])
-        #monomorphics = sum([int(round(1/x*length, 0)) for x in sampled_seg_sites])
         monomorphic_list.append(monomorphics)
-
+    
     return(snp_replicates, monomorphic_list)
 
 def sample_snps(snp_replicates):
     """For X replicates, sample one SNP per matrix (with replacement)."""
     snp_samples = []
     for snp in snp_replicates:
-        done = False
-        while done == False:
-            snp_sample = [A[:, np.random.randint(A.shape[1], size=1)] for A in snp]
-            done = np.all(np.array(snp_sample) <= 1)
+        snp_sample = [A[:, np.random.randint(A.shape[1], size=1)] for A in snp]
         snp_samples.append(snp_sample)
     return(snp_samples)
 

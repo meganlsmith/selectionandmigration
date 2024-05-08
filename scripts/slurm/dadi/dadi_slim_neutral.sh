@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -A general
+#SBATCH -A r00279
 #SBATCH -J dadi_neutral_scaled
 #SBATCH -p general
 #SBATCH -o dadi_neutral_scaled_%j.txt
@@ -12,14 +12,14 @@
 #SBATCH --time=96:00:00
 module load python
 
-python ./python_scripts/run_dadi.py --input ../SFS-redo/SLiM-testing-redo/dadi/nomig_neutral_scaled_1250/ --output SLiM-testing-redo/ --prefix nomig_neutral_scaled_1250
-python ./python_scripts/run_dadi_5k.py --input ../SFS-redo/SLiM-testing-redo/dadi/nomig_neutral_scaled_5000/ --output SLiM-testing-redo/ --prefix nomig_neutral_scaled_5000
-python ./python_scripts/run_dadi_20k.py --input ../SFS-redo/SLiM-testing-redo/dadi/nomig_neutral_scaled_20000/ --output SLiM-testing-redo/ --prefix nomig_neutral_scaled_20000
+python ./python_scripts/run_dadi.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/nomig_neutral_scaled_1250/ --output SLiM-testing-redo-revisions/ --prefix nomig_neutral_scaled_1250
+python ./python_scripts/run_dadi_5k.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/nomig_neutral_scaled_5000/ --output SLiM-testing-redo-revisions/ --prefix nomig_neutral_scaled_5000
+python ./python_scripts/run_dadi_20k.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/nomig_neutral_scaled_20000/ --output SLiM-testing-redo-revisions/ --prefix nomig_neutral_scaled_20000
 
-python ./python_scripts/run_dadi.py --input ../SFS-redo/SLiM-testing-redo/dadi/p1_p2_neutral_scaled_1250/ --output SLiM-testing-redo/ --prefix p1_p2_neutral_scaled_1250
-python ./python_scripts/run_dadi_5k.py --input ../SFS-redo/SLiM-testing-redo/dadi/p1_p2_neutral_scaled_5000/ --output SLiM-testing-redo/ --prefix p1_p2_neutral_scaled_5000
-python ./python_scripts/run_dadi_20k.py --input ../SFS-redo/SLiM-testing-redo/dadi/p1_p2_neutral_scaled_20000/ --output SLiM-testing-redo/ --prefix p1_p2_neutral_scaled_20000
+python ./python_scripts/run_dadi.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/p1_p2_neutral_scaled_1250/ --output SLiM-testing-redo-revisions/ --prefix p1_p2_neutral_scaled_1250
+python ./python_scripts/run_dadi_5k.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/p1_p2_neutral_scaled_5000/ --output SLiM-testing-redo-revisions/ --prefix p1_p2_neutral_scaled_5000
+python ./python_scripts/run_dadi_20k.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/p1_p2_neutral_scaled_20000/ --output SLiM-testing-redo-revisions/ --prefix p1_p2_neutral_scaled_20000
 
-python ./python_scripts/run_dadi.py --input ../SFS-redo/SLiM-testing-redo/dadi/p2_p1_neutral_scaled_1250/ --output SLiM-testing-redo/ --prefix p2_p1_neutral_scaled_1250
-python ./python_scripts/run_dadi_5k.py --input ../SFS-redo/SLiM-testing-redo/dadi/p2_p1_neutral_scaled_5000/ --output SLiM-testing-redo/ --prefix p2_p1_neutral_scaled_5000
-python ./python_scripts/run_dadi_20k.py --input ../SFS-redo/SLiM-testing-redo/dadi/p2_p1_neutral_scaled_20000/ --output SLiM-testing-redo/ --prefix p2_p1_neutral_scaled_20000
+python ./python_scripts/run_dadi.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/p2_p1_neutral_scaled_1250/ --output SLiM-testing-redo-revisions/ --prefix p2_p1_neutral_scaled_1250
+python ./python_scripts/run_dadi_5k.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/p2_p1_neutral_scaled_5000/ --output SLiM-testing-redo-revisions/ --prefix p2_p1_neutral_scaled_5000
+python ./python_scripts/run_dadi_20k.py --input ../SFS-redo-revision/SLiM-testing-redo-revisions/dadi/p2_p1_neutral_scaled_20000/ --output SLiM-testing-redo-revisions/ --prefix p2_p1_neutral_scaled_20000

@@ -2,10 +2,10 @@ import os
 import pandas
 
 # get list of directories we need to iterate over
-slim = os.listdir('SLiM-testing-redo')
-slim = [os.path.join('SLiM-testing-redo', x) for x in slim]
-drosophila = os.listdir('DROSOPHILA-testing-redo')
-drosophila = [os.path.join('DROSOPHILA-testing-redo', x) for x in drosophila]
+slim = os.listdir('SLiM-testing-redo-revisions')
+slim = [os.path.join('SLiM-testing-redo-revisions', x) for x in slim]
+drosophila = os.listdir('DROSOPHILA-testing-redo-revisions-v2')
+drosophila = [os.path.join('DROSOPHILA-testing-redo-revisions-v2', x) for x in drosophila]
 all_directories = slim + drosophila
 
 all_directories = [x for x in all_directories if 'nomig' in x]
@@ -33,7 +33,7 @@ for directory in all_directories:
     elif 'p2_p1' in directory:
         model = 'p2_p1'
     dfe = directory.split('_')[1]
-    if 'linked' in dfe or 'adaptive' in dfe:
+    if 'linked' in dfe or 'adaptive' in dfe or 'balancing' in dfe:
         percent = directory.split('_')[-1]
     else:
         percent = 'NA'

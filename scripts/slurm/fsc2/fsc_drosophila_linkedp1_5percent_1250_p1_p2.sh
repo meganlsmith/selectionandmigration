@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH -A general
+#SBATCH -A r00279
 #SBATCH -J fsc_linkedp1_drosophila_1250_p1_p2_5percent
 #SBATCH -p general
 #SBATCH -o fsc_linkedp1_drosophila_1250_p1_p2_5percent_%j.txt
 #SBATCH -e fsc_linkedp1_drosophila_1250_p1_p2_5percent_%j.err
-#SBATCH --mail-type=ALL
+#SBATCH --mail-type=FAIL
 #SBATCH --mail-user=mls16@iu.edu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -22,13 +22,13 @@
 # -u Generates or uses multidimensional SFS.
 # -c Number of threads to use.
 
-mkdir -p DROSOPHILA-testing-redo/fsc_linkedp1_drosophila_1250_p1_p2_5percent
-cd DROSOPHILA-testing-redo/fsc_linkedp1_drosophila_1250_p1_p2_5percent
+mkdir -p DROSOPHILA-testing-redo-revisions-v2/fsc_linkedp1_drosophila_1250_p1_p2_5percent
+cd DROSOPHILA-testing-redo-revisions-v2/fsc_linkedp1_drosophila_1250_p1_p2_5percent
 for i in {0..100}
 do
   mkdir -p rep_$i;
   cd rep_$i;
-  cp ../../../../SFS-redo/DROSOPHILA-testing-redo/fsc/p1_p2_linkedp1_drosophila_1250_5percent/rep_$i.fs ./Migration_1250_DSFS.obs;
+  cp ../../../../SFS-redo-revision/DROSOPHILA-testing-redo-revisions-v2/fsc/p1_p2_linkedp1_drosophila_1250_5percent/rep_$i.fs ./Migration_1250_DSFS.obs;
   cp ../../../fsc_files/Migration_1250.tpl ./;
   cp ../../../fsc_files/Migration_1250.est ./;
   ../../../programs/fsc27_linux64_new/fsc27093 -t Migration_1250.tpl -e Migration_1250.est -n 100000 -d -M -L 40 -q -u -c 24;

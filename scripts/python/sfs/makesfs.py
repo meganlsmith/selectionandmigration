@@ -23,8 +23,8 @@ def get_snps(input_directory, maxfiles, length):
             num = x.split('_')[4]
         if int(num) <= maxfiles:
             keep.append(x)
-    msout_files = sorted(keep)
-    
+    msout_files = sorted(keep, key=lambda x: int(x.split('_')[-3]))
+
     # list for storing SNPs.
     snps = []
     seg_sites = []
@@ -37,19 +37,26 @@ def get_snps(input_directory, maxfiles, length):
                 count+=1
                 if 'segsites' in line:
                     nsites = int(line.split(': ')[1])
-                    seg_sites.append(nsites)
                     toskip = count+1
                     break
-    
         data = pd.read_fwf(os.path.join(input_directory, file), skiprows=toskip, header=None, widths=[1]*nsites)
         data_matrix = data.to_numpy()
-        snps.append(data_matrix)
+        
+        mask = np.any((data_matrix != 0) & (data_matrix != 1), axis=0)
+        filtered_data_matrix = data_matrix[:, ~mask]
+        unique_elements = [np.unique(filtered_data_matrix[:, i]) for i in range(filtered_data_matrix.shape[1])]
+        variable_columns = [i for i, unique_vals in enumerate(unique_elements) if len(unique_vals) > 1]
+        filtered_data_matrix = filtered_data_matrix[:, variable_columns]
+
+        snps.append(filtered_data_matrix)
+        filtered_seg_sites = filtered_data_matrix.shape[1]
+        seg_sites.append(filtered_seg_sites)
+    
     # to caluclate monomorphic:
     # number invariant: length - seg_sites
     # sampling proportion: 1 / seg_sites
     # monomorphics = invariant * sampling proportion
     monomorphic = sum([int(round((length - x) * (1/x))) for x in seg_sites])
-    #monomorphic=sum([int(round(1/x*length, 0)) for x in seg_sites])
     
     return(snps, monomorphic)
 
@@ -57,10 +64,7 @@ def sample_snps(snps, x):
     """For X replicates, sample one SNP per matrix (with replacement)."""
     snp_samples = []
     for i in range(x):
-        done = False
-        while done == False:
-            snp_sample = [A[:, np.random.randint(A.shape[1], size=1)] for A in snps]
-            done = np.all(np.array(snp_sample) <= 1)
+        snp_sample = [A[:, np.random.randint(A.shape[1], size=1)] for A in snps] # iterate over each element A (a numpy array) in the snps list. generate a random integer index within the range of the second dimension (columns) of A. Select a random column from the array using that column number. assign the output to snp_sample.
         snp_samples.append(snp_sample)
     return(snp_samples)
 
@@ -134,14 +138,18 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # get the list of lists of snps for sampling
+    print('getting snps')
     snps, monomorphic = get_snps(args.input, args.max, args.length)
     
     # sample snps for sfs replicates
+    print('sampling snps')
     sampled_snps = sample_snps(snps, args.reps)
     
     # build sfs for replicates
+    print('building sfs')
     sfs = build_sfs(sampled_snps, args.reps, args.npop0, args.npop1)
     
     # write sfs to files
+    print('writing sfs')
     write_sfs(sfs, args.npop0, args.npop1, args.output1, args.output2, monomorphic)
     

@@ -1,0 +1,76 @@
+// set up the first simulation
+// this is no migration
+// there is background selection
+
+
+initialize() {
+
+	// initialize tree sequence recording
+	initializeTreeSeq();
+	
+	// mutation rate
+	initializeMutationRate(mutrate);
+	
+	// set up mutation classes
+	initializeMutationType("m1", 0.5, "f", 0.0);  //neutral
+	initializeMutationType("m2", 0.5, "g", sel_coding, 0.35); // deleterious coding
+	initializeMutationType("m3", 0.5, "g", sel_cnc, 0.35); // constrained noncoding
+
+	// make the genomic element types
+	initializeGenomicElementType("g1", c(m1), c(1)); //unconstrained
+	initializeGenomicElementType("g2", c(m1, m2), c(0.25, 0.75)); // deleterious coding region
+	initializeGenomicElementType("g3", c(m1, m3), c(0.25, 0.75)); // constrained noncoding region
+
+
+	// read genomic element map
+	genomelines = readFile("gfile_"+rep+".txt");
+	for (line in genomelines)
+	{
+		components = strsplit(line, "\t");
+		thisstart = asInteger(components[0])-1; // convert from one index
+		thisend = asInteger(components[1])-1; // convert from one index
+		thisprop = components[2];
+		thisratio = components[3];
+		if (thisratio == 0)
+		{
+				initializeGenomicElement(g1, thisstart, thisend);
+		}
+		else if (thisratio == 1)
+		{
+				initializeGenomicElement(g2, thisstart, thisend);
+		}
+		else if (thisratio == 0.1)
+		{
+				initializeGenomicElement(g3, thisstart, thisend);
+		}
+
+	}
+
+	// uniform chromosome of length 10 kb with uniform recombination
+	initializeRecombinationRate(recrate);
+	
+
+}
+
+// create a population of npopindividuals
+1 early() {
+	sim.addSubpop("p1", npop);
+        community.rescheduleScriptBlock(s1, burnin, burnin);
+	community.rescheduleScriptBlock(s2, asInteger(divtime)+burnin, asInteger(divtime)+burnin);
+
+}
+
+// split the two populations
+s1 25000 early() { 
+	sim.addSubpopSplit("p2", npop, p1); 
+	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
+}
+
+
+
+s2 13750 late() {
+	cat("Final random seed: " + getSeed() + "\n");
+	name = "nomig_bgsh5_drosophila_"+rep+".trees";
+	sim.treeSeqOutput(name);
+}
+

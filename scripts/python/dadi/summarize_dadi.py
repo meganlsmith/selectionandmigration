@@ -7,7 +7,7 @@ all_results = os.listdir('results')
 all_results = [x for x in all_results if not 'nomigmodel' in x]
 
 # create empty dataframe
-all_results_df = pd.DataFrame(columns=['L', 'nu1', 'nu2', 'T', 'm12', 'm21', 'theta0', 'model', 'genome', 'dfe', 'divtime'])
+all_results_df = pd.DataFrame(columns=['L', 'nu1', 'nu2', 'T', 'm12', 'm21', 'theta0', 'model', 'genome', 'dfe', 'divtime', 'percent'])
 new_column_names = ['L', 'nu1', 'nu2', 'T', 'm12', 'm21', 'theta0']
 
 for i in all_results:
@@ -25,9 +25,9 @@ for i in all_results:
     if genome=='scaled':
         genome='simple'
     dfe = info[2-subtract]
-    if dfe == 'linkedp1' or dfe == 'linkedancestor' or dfe == 'adaptiveint':
+    if dfe == 'linkedp1' or dfe == 'linkedancestor' or dfe == 'adaptiveint' or dfe == "balancing":
         percent = info[5-subtract].split('percent')[0]
-        dfe = dfe + '_' + percent
+        #dfe = dfe + '_' + percent
     else:
         percent = 'NA'
     divtime = info[4-subtract]
@@ -41,7 +41,8 @@ for i in all_results:
     results['genome'] = genome
     results['dfe'] = dfe
     results['divtime'] = divtime
-    
+    results['percent'] = percent
+
     # add to growing dataframe
     all_results_df = pd.concat([all_results_df, results], ignore_index = True)
 

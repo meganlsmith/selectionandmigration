@@ -1,8 +1,14 @@
+// set up the first simulation
+// this is no migration
+// there is a sweep in p1
+// neutral mutations are added after the fact via tree sequence recording
+
 initialize() {
 	// initialize tree sequence recording
 	initializeTreeSeq();
-	
-	defineConstant("selcoef", runif(1, 0.1, 0.5));
+
+        // draw the selection coefficient
+	defineConstant("selcoef", runif(1, minsel, maxsel));
 	
 	// we'll overlay our. neutral mutations, so this is zero.
 	initializeMutationRate(0);
@@ -10,27 +16,27 @@ initialize() {
 	// m3 mutation type: beneficial
 	initializeMutationType("m3", 1.0, "f", selcoef);
 	
-	
 	// g1 genomic element type: uses m3 for all mutations
 	initializeGenomicElementType("g1", m3, 1.0);
 	
 	// uniform chromosome of length 10 kb with uniform recombination
 	initializeGenomicElement(g1, 0, 9999);
-	initializeRecombinationRate(5e-6);
+	initializeRecombinationRate(recrate);
 }
+
 // make all m3 mutations neutral in p2
 mutationEffect(m3, p2) { return 1.0; }
 
-// create a population of 12500 individuals, diverge
+// create a population of npop individuals, diverge
 1 early() {
 	defineConstant("simID", getSeed());
-	sim.addSubpop("p1", 1250);
-	sim.addSubpopSplit("p2", 1250, p1);
+	sim.addSubpop("p1", npop);
+	sim.addSubpopSplit("p2", npop, p1);
 	sim.treeSeqRememberIndividuals(sim.subpopulations.individuals);
 	
 	
-	community.rescheduleScriptBlock(s4, 1, asInteger(divtime) - 1);
-	community.rescheduleScriptBlock(s3, asInteger(divtime), asInteger(divtime));
+	community.rescheduleScriptBlock(s1, 1, asInteger(divtime));
+	community.rescheduleScriptBlock(s2, asInteger(divtime), asInteger(divtime));
 }
 
 // add advantageous mutation
@@ -41,7 +47,7 @@ mutationEffect(m3, p2) { return 1.0; }
 }
 
 // start over if mutaiton lost
-s4 1: late() {
+s1 1: late() {
 	mut = sim.mutationsOfType(m3);
 	if (size(mut) == 0)
 	{
@@ -59,15 +65,9 @@ s4 1: late() {
 	}
 }
 
-
-
-
-
-
-s3 13750 late() {
+s2 13750 late() {
 	cat("Final random seed: " + getSeed() + "\n");
 	cat("Selection_coefficient: " + selcoef);
 	name = "nomig_linkedp1_scaled_"+rep+".trees";
 	sim.treeSeqOutput(name);
 }
-

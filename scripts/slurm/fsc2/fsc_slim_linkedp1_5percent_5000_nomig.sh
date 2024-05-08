@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH -A general
+#SBATCH -A r00279
 #SBATCH -J fsc_linkedp1_scaled_5000_nomig_5percent
 #SBATCH -p general
 #SBATCH -o fsc_linkedp1_scaled_5000_nomig_5percent_%j.txt
 #SBATCH -e fsc_linkedp1_scaled_5000_nomig_5percent_%j.err
-#SBATCH --mail-type=ALL
+#SBATCH --mail-type=FAIL
 #SBATCH --mail-user=mls16@iu.edu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -22,13 +22,13 @@
 # -u Generates or uses multidimensional SFS.
 # -c Number of threads to use.
 
-mkdir -p SLiM-testing-redo/fsc_linkedp1_scaled_5000_nomig_5percent
-cd SLiM-testing-redo/fsc_linkedp1_scaled_5000_nomig_5percent
+mkdir -p SLiM-testing-redo-revisions/fsc_linkedp1_scaled_5000_nomig_5percent
+cd SLiM-testing-redo-revisions/fsc_linkedp1_scaled_5000_nomig_5percent
 for i in {0..100}
 do
   mkdir -p rep_$i;
   cd rep_$i;
-  cp ../../../../SFS-redo/SLiM-testing-redo/fsc/nomig_linkedp1_scaled_5000_5percent/rep_$i.fs ./Migration_5000_DSFS.obs;
+  cp ../../../../SFS-redo-revision/SLiM-testing-redo-revisions/fsc/nomig_linkedp1_scaled_5000_5percent/rep_$i.fs ./Migration_5000_DSFS.obs;
   cp ../../../fsc_files/Migration_5000.tpl ./;
   cp ../../../fsc_files/Migration_5000.est ./;
   ../../../programs/fsc27_linux64_new/fsc27093 -t Migration_5000.tpl -e Migration_5000.est -n 100000 -d -M -L 40 -q -u -c 24;
