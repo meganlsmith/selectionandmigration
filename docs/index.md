@@ -17,7 +17,10 @@ We considered several different models, all implemented in SLiM, tskit, and pysl
 
 ## [∂a∂i](zD_dadi.md)
 
+## [Rougeux](zE_rougeux.md)
+
 ## [fastsimcoal2](zF_fsc2.md)
+
 
 # BPP
 
